@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আহাদ আলী লেলিন - হোম</title>
+    <title>আহাদ আলী লেলিন - অফিশিয়াল পোর্টফোলিও</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -12,98 +12,100 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Hind Siliguri', 'Segoe UI', sans-serif;
+            font-family: 'Hind Siliguri', sans-serif;
         }
 
         body {
-            background-color: #f8fafc;
-            color: #0f172a;
+            background-color: #0f172a;
+            color: #f8fafc;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Top Navbar (সংগ্রহ পেজের সাথে হুবহু এক) */
+        /* Background Particle Canvas */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navbar Style */
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #e2e8f0;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 14px 24px;
+            padding: 16px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .nav-logo {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #0f172a;
+            color: #38bdf8;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .nav-logo i {
-            color: #2563eb;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 8px;
+            gap: 12px;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #475569;
+            color: #94a3b8;
             font-size: 0.95rem;
             font-weight: 500;
             padding: 8px 16px;
             border-radius: 8px;
-            transition: all 0.25s ease;
+            transition: all 0.3s ease;
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: #2563eb;
-            background: #eff6ff;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
 
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            color: #334155;
-            cursor: pointer;
-        }
-
-        /* Hero Wrapper */
+        /* Main Container */
         .main-wrapper {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 40px 20px;
+            z-index: 1;
         }
 
-        .hero-container {
-            max-width: 1200px;
+        .hero-card {
+            max-width: 1100px;
             width: 100%;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -111,122 +113,98 @@
             position: relative;
         }
 
-        .hero-container::before {
+        .hero-card::after {
             content: '';
             position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 300px;
-            height: 300px;
-            background: #0284c7;
-            filter: blur(150px);
-            opacity: 0.08;
-            border-radius: 50%;
-            z-index: 0;
+            top: 0; right: 0; bottom: 0; left: 0;
+            border-radius: 24px;
+            box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.15);
+            pointer-events: none;
         }
 
-        /* Content Left */
         .hero-content {
-            flex: 1 1 50%;
+            flex: 1 1 55%;
             padding: 45px 35px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            z-index: 1;
         }
 
         .greeting-badge {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, rgba(37, 99, 235, 0.12) 100%);
-            color: #0284c7;
-            padding: 8px 18px;
+            gap: 8px;
+            background: rgba(56, 189, 248, 0.1);
+            color: #38bdf8;
+            padding: 6px 16px;
             border-radius: 50px;
-            font-size: 0.95rem;
-            font-weight: 700;
-            width: fit-content;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid rgba(56, 189, 248, 0.3);
             margin-bottom: 20px;
-            border: 1.5px solid rgba(2, 132, 199, 0.25);
-        }
-
-        .greeting-badge i {
-            font-size: 1rem;
-            color: #0284c7;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 1; }
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
         .hero-content h1 {
-            font-size: 2.5rem;
-            line-height: 1.25;
-            color: #0f172a;
+            font-size: 2.6rem;
+            line-height: 1.2;
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .hero-content h1 span {
-            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #38bdf8;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
         }
 
-        .hero-content p.subtitle {
+        .subtitle {
             font-size: 1.05rem;
-            color: #475569;
+            color: #cbd5e1;
             margin-bottom: 20px;
             line-height: 1.6;
         }
 
         .quote-card {
-            background: #f8fafc;
-            border-left: 4px solid #0284c7;
-            padding: 15px 20px;
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 4px solid #38bdf8;
+            padding: 16px 20px;
             border-radius: 0 12px 12px 0;
             margin-bottom: 25px;
-            border-top: 1px solid #f1f5f9;
-            border-right: 1px solid #f1f5f9;
-            border-bottom: 1px solid #f1f5f9;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .quote-card p {
             font-size: 0.95rem;
-            color: #334155;
+            color: #94a3b8;
             font-style: italic;
             line-height: 1.6;
-        }
-
-        .quote-card i {
-            color: #0284c7;
-            margin-right: 6px;
         }
 
         .creative-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 28px;
+            margin-bottom: 30px;
         }
 
         .pill {
-            background: #ffffff;
-            color: #334155;
-            padding: 6px 14px;
+            background: rgba(15, 23, 42, 0.8);
+            color: #e2e8f0;
+            padding: 8px 16px;
             border-radius: 8px;
-            font-size: 0.88rem;
-            border: 1px solid #cbd5e1;
-            font-weight: 500;
+            font-size: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .pill i {
+            color: #38bdf8;
         }
 
         .cta-group {
             display: flex;
             gap: 15px;
-            flex-wrap: wrap;
         }
 
         .btn-primary {
@@ -236,7 +214,7 @@
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.4);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -244,18 +222,18 @@
         }
 
         .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
         }
 
         .btn-secondary {
-            background: #ffffff;
-            color: #0f172a;
+            background: transparent;
+            color: #f8fafc;
             padding: 12px 26px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            border: 1px solid #cbd5e1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -263,30 +241,28 @@
         }
 
         .btn-secondary:hover {
-            background: #f1f5f9;
-            border-color: #94a3b8;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: #38bdf8;
+            color: #38bdf8;
         }
 
-        /* Image Right */
+        /* Image Wrapper */
         .hero-image-wrapper {
-            flex: 1 1 50%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            flex: 1 1 45%;
             padding: 35px;
-            z-index: 1;
+            display: flex;
+            justify-content: center;
         }
 
         .image-card {
             position: relative;
             width: 100%;
-            max-width: 440px;
-            height: 480px;
+            max-width: 380px;
+            height: 440px;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-            border: 4px solid #ffffff;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
         }
 
         .image-card img {
@@ -294,107 +270,69 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .image-card:hover img {
-            transform: scale(1.03);
         }
 
         .floating-badge {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.92);
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(15, 23, 42, 0.85);
             backdrop-filter: blur(10px);
-            padding: 12px 18px;
+            padding: 12px;
             border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            color: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.3);
             display: flex;
             align-items: center;
             gap: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .floating-badge i {
-            font-size: 1.4rem;
-            color: #0284c7;
+            font-size: 1.5rem;
+            color: #38bdf8;
         }
 
-        .floating-badge div strong {
+        .floating-badge strong {
             display: block;
             font-size: 0.95rem;
+            color: #f8fafc;
         }
 
-        .floating-badge div span {
+        .floating-badge span {
             font-size: 0.8rem;
-            color: #64748b;
+            color: #94a3b8;
         }
 
-        /* Mobile View Response */
+        /* Mobile View */
         @media (max-width: 900px) {
-            .hero-container {
-                flex-direction: column-reverse;
-            }
-            .hero-content {
-                padding: 30px 20px;
-            }
-            .hero-image-wrapper {
-                padding: 24px 20px 0;
-                width: 100%;
-            }
-            .image-card {
-                height: 360px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .mobile-menu-btn { display: block; }
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0; right: 0;
-                background: #ffffff;
-                flex-direction: column;
-                padding: 16px;
-                border-bottom: 1px solid #e2e8f0;
-            }
-            .nav-links.show { display: flex; }
-            .hero-content h1 { font-size: 1.8rem; }
-            .floating-badge { display: none; }
+            .hero-card { flex-direction: column-reverse; }
+            .hero-content { padding: 30px 20px; }
+            .hero-image-wrapper { padding: 30px 20px 0; width: 100%; }
+            .image-card { height: 350px; }
         }
     </style>
 </head>
 <body>
 
-<!-- Global Navbar -->
+<canvas id="particle-canvas"></canvas>
+
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="nav-logo">
-            <i class="fa-solid fa-book-open"></i> আহাদ আলী লেলিন
-        </a>
-        <button class="mobile-menu-btn" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <ul class="nav-links" id="navLinks">
+        <a href="#" class="nav-logo"><i class="fa-solid fa-code"></i> AHAD ALI LELIN</a>
+        <ul class="nav-links">
             <li><a href="#" class="active">হোম</a></li>
             <li><a href="#">সংগ্রহ</a></li>
-            <li><a href="#">ভাবনার ক্যানভাস</a></li>
             <li><a href="#">আমার সম্পর্কে</a></li>
             <li><a href="#">যোগাযোগ</a></li>
         </ul>
     </div>
 </nav>
 
-<!-- Main Container -->
 <div class="main-wrapper">
-    <div class="hero-container">
+    <div class="hero-card">
         <div class="hero-content">
             <div class="greeting-badge" id="greetingBox">
-                <i class="fa-solid fa-sparkles"></i> 
+                <i class="fa-solid fa-sparkles"></i>
                 <span id="greetingText">স্বাগতম!</span>
             </div>
 
@@ -419,7 +357,7 @@
             </div>
 
             <div class="cta-group">
-                <a href="#about" class="btn-primary"><i class="fa-solid fa-user"></i> আমার সম্পর্কে জানুন</a>
+                <a href="#about" class="btn-primary"><i class="fa-solid fa-user"></i> বিস্তারিত জানুন</a>
                 <a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> যোগাযোগ করুন</a>
             </div>
         </div>
@@ -441,32 +379,59 @@
 </div>
 
 <script>
-    // ডাইনামিক সময়ের সাথে অভিবাদন
+    // Particle Animation Background
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    for (let i = 0; i < 50; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            dx: (Math.random() - 0.5) * 0.5,
+            dy: (Math.random() - 0.5) * 0.5
+        });
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.5)';
+        
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            p.x += p.dx;
+            p.y += p.dy;
+
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Time-based Greeting
     function setGreeting() {
         const hour = new Date().getHours();
         const greetingText = document.getElementById('greetingText');
-        
         let msg = "";
-        if (hour >= 5 && hour < 12) {
-            msg = "শুভ সকাল! আমার ডিজিটাল স্পেসে আপনাকে স্বাগতম।";
-        } else if (hour >= 12 && hour < 17) {
-            msg = "শুভ দুপুর! আমার ওয়েবসাইটে আপনাকে স্বাগতম।";
-        } else if (hour >= 17 && hour < 20) {
-            msg = "শুভ সন্ধ্যা! আমার ওয়েবসাইটে আপনাকে স্বাগতম।";
-        } else {
-            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।";
-        }
-
-        const parser = new DOMParser();
-        const decodedMsg = parser.parseFromString(msg, 'text/html').body.textContent;
-        greetingText.innerText = decodedMsg;
+        if (hour >= 5 && hour < 12) msg = "শুভ সকাল! ডিজিটাল স্পেসে স্বাগতম।";
+        else if (hour >= 12 && hour < 17) msg = "শুভ দুপুর! স্বাগতম।";
+        else if (hour >= 17 && hour < 20) msg = "শুভ সন্ধ্যা! স্বাগতম।";
+        else msg = "শুভ রাত! স্বাগতম।";
+        greetingText.innerText = msg;
     }
     setGreeting();
-
-    // মোবাইল ড্রপডাউন মেনু
-    function toggleMenu() {
-        document.getElementById('navLinks').classList.toggle('show');
-    }
 </script>
 
 </body>
