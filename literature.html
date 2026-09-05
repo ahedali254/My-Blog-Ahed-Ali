@@ -14,7 +14,7 @@
         body { 
             background-color: #0b1329; 
             color: #f8fafc; 
-            padding-top: 80px; /* Space for fixed navbar */
+            padding-top: 80px;
             padding-bottom: 30px; 
             min-height: 100vh;
             position: relative;
@@ -209,17 +209,14 @@
 <!-- Fixed Navigation Bar -->
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="brand-logo">
+        <a href="index.html" class="brand-logo">
             <i class="fa-solid fa-bookmark"></i> পছন্দের সংগ্রহ
         </a>
         <button class="hamburger" onclick="toggleMobileMenu()">
             <i class="fa-solid fa-bars" id="menuIcon"></i>
         </button>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="#" class="nav-link active">হোম</a></li>
-            <li><a href="#contentGrid" class="nav-link">সংগ্রহ তালিকা</a></li>
-            <li><a href="javascript:void(0)" onclick="showAdminPanel()" class="nav-link"><i class="fa-solid fa-lock"></i> অ্যাডমিন</a></li>
-        </ul>
+        <!-- Dynamic Navigation Array will load here -->
+        <ul class="nav-menu" id="navMenu"></ul>
     </div>
 </nav>
 
@@ -298,6 +295,32 @@
 <button class="admin-trigger" onclick="showAdminPanel()"><i class="fa-solid fa-lock"></i> Admin Login</button>
 
 <script>
+    // ১. ডায়নামিক মেনু বার রেন্ডার করার লজিক (Dynamic Navigation)
+    const pages = [
+        { name: "হোম", url: "index.html" },
+        { name: "সংগ্রহ", url: "literature.html" },
+        { name: "আমার লেখা", url: "thoughts.html" },
+        { name: "স্মৃতির পাতায়", url: "galary.html" },
+        { name: "আমার সম্পর্কে", url: "about.html" },
+        { name: "যোগাযোগ", url: "contact.html" }
+    ];
+
+    function renderDynamicMenu() {
+        const navMenu = document.getElementById("navMenu");
+        if (!navMenu) return;
+
+        const currentPath = window.location.pathname.split("/").pop() || "index.html";
+
+        const menuHTML = pages.map(page => {
+            const isActive = (currentPath === page.url || (currentPath === '' && page.url === 'index.html')) ? "active" : "";
+            return `<li><a href="${page.url}" class="nav-link ${isActive}">${page.name}</a></li>`;
+        }).join('');
+
+        navMenu.innerHTML = menuHTML + `<li><a href="javascript:void(0)" onclick="showAdminPanel()" class="nav-link"><i class="fa-solid fa-lock"></i> অ্যাডমিন</a></li>`;
+    }
+
+    document.addEventListener("DOMContentLoaded", renderDynamicMenu);
+
     // Navigation Toggle for Mobile
     function toggleMobileMenu() {
         var menu = document.getElementById("navMenu");
@@ -376,7 +399,7 @@
         var grid = document.getElementById("contentGrid");
         grid.innerHTML = '<div class="loading-text">ডাটা লোড হচ্ছে...</div>';
         
-        db.collection("collection").get().then(function(querySnapshot) {
+        db.collection("collection").orderBy("createdAt", "desc").get().then(function(querySnapshot) {
             allData = [];
             querySnapshot.forEach(function(doc) {
                 var d = doc.data();
