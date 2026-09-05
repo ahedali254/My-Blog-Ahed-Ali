@@ -3,404 +3,368 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahad Ali Lelin - Ultra Modern Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <title>Ahad Ali Lelin - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Hind Siliguri', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #050b14; color: #fff; overflow-x: hidden; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        #bg-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; background-color: #050b14; pointer-events: none; }
+        
+        .header { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            padding: 1rem 7%; 
+            background: rgba(5, 11, 20, 0.95); 
+            backdrop-filter: blur(12px); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            z-index: 100; 
+            border-bottom: 1px solid rgba(0, 240, 255, 0.15); 
         }
 
-        body {
-            background-color: #030712;
-            color: #f3f4f6;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 30px 20px;
-            overflow-x: hidden;
-        }
-
-        /* Ambient Glow Backgrounds */
-        .bg-glow-1 {
-            position: fixed;
-            top: 5%;
-            left: 5%;
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .bg-glow-2 {
-            position: fixed;
-            bottom: 5%;
-            right: 5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* Full Width & Large Container */
-        .hero-container {
-            max-width: 1400px;
-            width: 100%;
-            min-height: 80vh;
-            background: rgba(17, 24, 39, 0.6);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 32px;
-            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-            overflow: hidden;
-        }
-
-        /* Left Column: Content Section */
-        .hero-content {
-            flex: 1.2;
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .greeting-badge {
+        .logo { 
+            font-size: 1.8rem; 
+            color: #ffffff; 
+            text-decoration: none; 
+            font-weight: 700; 
+            letter-spacing: 0.5px; 
+            white-space: nowrap; 
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            background: rgba(14, 165, 233, 0.1);
-            color: #38bdf8;
-            padding: 10px 22px;
-            border-radius: 50px;
-            font-size: 1rem;
-            font-weight: 600;
-            width: fit-content;
-            margin-bottom: 25px;
-            border: 1px solid rgba(56, 189, 248, 0.25);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
+            gap: 0.6rem;
+            transition: all 0.3s ease;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            line-height: 1.15;
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+        .logo-icon {
+            font-size: 1.5rem;
+            color: #00f0ff;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.8));
+            transition: transform 0.4s ease;
         }
 
-        .hero-content h1 span {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+        .logo-accent {
+            background: linear-gradient(135deg, #00f0ff 0%, #7000ff 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.3));
         }
 
-        .hero-content p.subtitle {
-            font-size: 1.2rem;
-            color: #9ca3af;
-            margin-bottom: 30px;
-            line-height: 1.7;
-            max-width: 680px;
-        }
+        .logo:hover .logo-icon { transform: rotate(15deg) scale(1.1); }
+        
+        .navbar { display: flex; align-items: center; gap: 1.8rem; }
+        .navbar a { font-size: 1.05rem; color: #e0e0e0; text-decoration: none; font-weight: 500; transition: all 0.3s ease; position: relative; white-space: nowrap; }
+        .navbar a::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0%; height: 2px; background: #00f0ff; transition: 0.3s ease; box-shadow: 0 0 8px #00f0ff; }
+        .navbar a:hover::after, .navbar a.active::after { width: 100%; }
+        .navbar a:hover, .navbar a.active { color: #00f0ff; }
 
-        /* Dashing Quote Card */
-        .quote-card {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
-            border-left: 4px solid #38bdf8;
-            padding: 20px 24px;
-            border-radius: 0 16px 16px 0;
-            margin-bottom: 35px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
-            border-right: 1px solid rgba(255, 255, 255, 0.04);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .quote-card p {
-            font-size: 1.05rem;
-            color: #d1d5db;
-            font-style: italic;
-            line-height: 1.6;
-        }
-
-        .quote-card i {
-            color: #38bdf8;
-            margin-right: 8px;
-        }
-
-        .creative-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 40px;
-        }
-
-        .pill {
-            background: rgba(255, 255, 255, 0.04);
-            color: #e5e7eb;
-            padding: 10px 20px;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .pill i {
-            color: #38bdf8;
-        }
-
-        .pill:hover {
-            background: rgba(56, 189, 248, 0.12);
-            border-color: rgba(56, 189, 248, 0.4);
-            color: #ffffff;
-            transform: translateY(-2px);
-        }
-
-        /* Action Buttons */
-        .cta-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-            color: #ffffff;
-            padding: 16px 36px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.5);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px -5px rgba(2, 132, 199, 0.7);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
-            color: #ffffff;
-            padding: 16px 36px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.05rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.3);
-            transform: translateY(-3px);
-        }
-
-        /* Right Column: Large Dynamic Image Showcase */
-        .hero-image-wrapper {
-            flex: 0.9;
-            height: 100%;
-            padding: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-card {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 580px;
-            border-radius: 28px;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .image-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .image-card:hover img {
-            transform: scale(1.06);
-        }
-
-        /* Floating Info Badge Over Image */
-        .floating-badge {
-            position: absolute;
-            bottom: 25px;
-            left: 25px;
-            right: 25px;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            padding: 18px 24px;
+        section { min-height: calc(100vh - 120px); padding: 8rem 7% 4rem; max-width: 1300px; margin: 0 auto; width: 100%; flex: 1; }
+        
+        .home { display: flex; align-items: center; justify-content: space-between; gap: 4rem; }
+        .home-content { max-width: 680px; }
+        .greeting-badge {
+            display: inline-block;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: #00f0ff;
+            padding: 0.38rem 1.1rem;
             border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .floating-badge i {
-            font-size: 1.8rem;
-            color: #38bdf8;
-        }
-
-        .floating-badge div strong {
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 700;
-        }
-
-        .floating-badge div span {
             font-size: 0.9rem;
-            color: #9ca3af;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
         }
 
-        /* Responsive Breakpoints */
-        @media (max-width: 1100px) {
-            .hero-container {
-                flex-direction: column-reverse;
-                min-height: auto;
-            }
-            .hero-content {
-                padding: 40px 30px;
-            }
-            .hero-image-wrapper {
-                padding: 40px 30px 0 30px;
-                width: 100%;
-            }
-            .image-card {
-                height: 450px;
-            }
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
+        .home-content h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff; line-height: 1.1; }
+        .home-content h1 span { color: #00f0ff; text-shadow: 0 0 20px rgba(0, 240, 255, 0.4); }
+        .typing-title { font-size: 1.4rem; font-weight: 600; color: #a0aec0; margin-bottom: 1.2rem; min-height: 2.2rem; }
+        .typing-title span { color: #00f0ff; border-right: 2px solid #00f0ff; padding-right: 5px; animation: blink 0.75s infinite; }
+
+        @keyframes blink { 0%, 100% { border-color: transparent; } 50% { border-color: #00f0ff; } }
+
+        .home-content p { font-size: 1.02rem; margin-bottom: 1.5rem; color: #d1d5db; line-height: 1.75; }
+        
+        .cv-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+            font-size: 0.92rem;
+            color: #a0aec0;
+        }
+        .cv-item { display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.03); padding: 0.4rem 0.8rem; border-radius: 8px; border: 1px solid rgba(0,240,255,0.1); }
+        .cv-item i { color: #00f0ff; }
+
+        .btn-group { display: flex; gap: 1.2rem; align-items: center; margin-bottom: 2.5rem; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2.2rem; background: #00f0ff; border-radius: 30px; box-shadow: 0 0 18px rgba(0, 240, 255, 0.35); font-size: 1.05rem; color: #050b14; text-decoration: none; font-weight: 700; transition: 0.3s ease; border: 2px solid #00f0ff; }
+        .btn:hover { box-shadow: 0 0 28px #00f0ff; transform: translateY(-2px); }
+        .btn-outline { background: transparent; color: #00f0ff; box-shadow: none; }
+        .btn-outline:hover { background: rgba(0, 240, 255, 0.1); color: #00f0ff; box-shadow: 0 0 15px rgba(0, 240, 255, 0.2); }
+
+        .social-media { display: flex; gap: 1rem; }
+        .social-media a { display: inline-flex; justify-content: center; align-items: center; width: 2.8rem; height: 2.8rem; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(0, 240, 255, 0.3); border-radius: 50%; font-size: 1.1rem; color: #00f0ff; text-decoration: none; transition: 0.3s ease; }
+        .social-media a:hover { background: #00f0ff; color: #050b14; box-shadow: 0 0 20px #00f0ff; transform: translateY(-3px); }
+        
+        .home-img { position: relative; display: flex; justify-content: center; align-items: center; }
+        .img-box { position: relative; width: 340px; height: 340px; border-radius: 50%; padding: 8px; background: linear-gradient(135deg, #00f0ff, transparent, #00f0ff); box-shadow: 0 0 35px rgba(0, 240, 255, 0.25); }
+        .img-box img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 4px solid #050b14; }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .stat-item h3 { font-size: 1.6rem; color: #00f0ff; font-weight: 700; }
+        .stat-item p { font-size: 0.85rem; color: #a0aec0; }
+
+        .footer {
+            background: rgba(5, 11, 20, 0.95);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            padding: 1.5rem 7%;
+            text-align: center;
+            margin-top: auto;
         }
 
-        @media (max-width: 640px) {
-            body {
-                padding: 12px;
-            }
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-            .image-card {
-                height: 360px;
-            }
-            .cta-group {
-                flex-direction: column;
-            }
-            .btn-primary, .btn-secondary {
-                justify-content: center;
-                width: 100%;
-            }
+        .footer-content {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-text { color: #a0aec0; font-size: 0.95rem; }
+        .footer-text span { color: #00f0ff; font-weight: 600; }
+        .footer-socials { display: flex; gap: 1rem; }
+        .footer-socials a { color: #a0aec0; font-size: 1.1rem; transition: all 0.3s ease; }
+        .footer-socials a:hover { color: #00f0ff; transform: translateY(-2px); }
+
+        @media (max-width: 991px) { 
+            .header { padding: 0.8rem 4%; } 
+            section { padding: 6.5rem 4% 3rem; } 
+            .home { flex-direction: column-reverse; text-align: center; gap: 3rem; } 
+            .btn-group, .social-media, .hero-stats, .cv-highlights { justify-content: center; } 
+            .img-box { width: 280px; height: 280px; }
+        }
+
+        @media (max-width: 768px) { 
+            .header { flex-direction: column; gap: 0.6rem; padding: 0.8rem 3%; }
+            .logo { font-size: 1.5rem; }
+            .navbar { display: flex !important; width: 100%; overflow-x: auto; white-space: nowrap; justify-content: flex-start; padding-bottom: 0.4rem; gap: 1.2rem; }
+            .navbar::-webkit-scrollbar { display: none; }
+            .navbar a { font-size: 0.95rem; }
+            section { padding-top: 8.5rem; }
+            .home-content h1 { font-size: 2.2rem; } 
+            .hero-stats { flex-wrap: wrap; gap: 1rem; }
+            .footer-content { flex-direction: column; justify-content: center; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <canvas id="bg-canvas"></canvas>
 
-<div class="bg-glow-1"></div>
-<div class="bg-glow-2"></div>
-
-<div class="hero-container">
-    <div class="hero-content">
-        <div class="greeting-badge">
-            <i class="fa-solid fa-sparkles"></i> 
-            <span id="greetingText">স্বাগতম!</span>
-        </div>
-
-        <h1>আমি <span>আহাদ আলী লেলিন</span></h1>
+    <header class="header">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-terminal logo-icon"></i> Ahed<span class="logo-accent"> Ali Lelin</span>
+        </a>
         
-        <p class="subtitle">
-            কর্পোরেট সার্ভেইল্যান্স অপারেশনের পাশাপাশি ডিজিটাল মার্কেটিং, সাহিত্যচর্চা ও সুরের ভুবনে নিজেকে প্রকাশ করতে ভালোবাসি।
-        </p>
+        <nav class="navbar" id="navbar">
+            <a href="index.html" class="active">Home</a>
+            <a href="literature.html">আমার পছন্দের সাহিত্য কর্ম</a>
+            <a href="thoughts.html">ভাবনার ক্যানভাস ও কলমের ছোঁয়া</a>
+            <a href="contact.html">Contact Me / যোগাযোগ</a>
+            <a href="about.html">About Me / আমার সম্পর্কে</a>
+        </nav>
+    </header>
 
-        <div class="quote-card">
-            <p>
-                <i class="fa-solid fa-quote-left"></i>
-                "শব্দ যখন সুরের ছোঁয়া পায়, চিন্তারা তখন মেলে ডানা। পেশাগত দক্ষতার পাশাপাশি শিল্পের নিভৃত সাধনাই আমার জীবনের আসল ছন্দ।"
-            </p>
-        </div>
-
-        <div class="creative-pills">
-            <span class="pill"><i class="fa-solid fa-shield-halved"></i> Surveillance Expert</span>
-            <span class="pill"><i class="fa-solid fa-bullhorn"></i> Digital Marketer</span>
-            <span class="pill"><i class="fa-solid fa-pen-nib"></i> কবি ও লেখক</span>
-            <span class="pill"><i class="fa-solid fa-music"></i> আবৃত্তিশিল্পী & গায়ক</span>
-        </div>
-
-        <div class="cta-group">
-            <a href="#about" class="btn-primary"><i class="fa-solid fa-user"></i> আমার সম্পর্কে জানুন</a>
-            <a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> যোগাযোগ করুন</a>
-        </div>
-    </div>
-
-    <div class="hero-image-wrapper">
-        <div class="image-card">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXiFvoAgD3LmuV7Ti09lcJJsdtjj3RjTUTl2nLhZm1MGDW4Y0uuXVt1nUaSXCTrUweSzuA4vUbF_8LPqtyGAes6x8AN7yya-GpgjA0CuGXr1Lxwrb5G5pl7-Nn9wb7mqkGrU5sSTg0UZAXM4d5CzMOXsSBIWjU7dImYlit8cv2FQz2fuPtJj85u0AvJs/s1600/Gemini_Generated_Image_cgysb5cgysb5cgys.jfif" alt="আহাদ আলী লেলিন">
+    <section class="home">
+        <div class="home-content">
+            <div class="greeting-badge"><i class="fa-solid fa-sparkles"></i> Welcome to my official portfolio</div>
+            <h1>I'm <span>Ahed Ali Lelin</span></h1>
+            <div class="typing-title">I am a <span id="typed-text"></span></div>
             
-            <div class="floating-badge">
-                <i class="fa-solid fa-circle-check"></i>
-                <div>
-                    <strong>আহাদ আলী লেলিন</strong>
-                    <span>VSO (OP) | United Group</span>
+            <p>Results-driven Operations & Administrative Professional with 7+ years of experience in multi-site operations, supervising 78+ staff, facility oversight, and data management. Seeking an Administrative Officer / Operations Executive role to leverage my analytical skills, leadership, and operational expertise to drive organizational efficiency.</p>
+
+            <div class="cv-highlights">
+                <div class="cv-item"><i class="fa-solid fa-user-shield"></i> VSO (OP) - United Group</div>
+                <div class="cv-item"><i class="fa-solid fa-graduation-cap"></i> MSS in Economics</div>
+                <div class="cv-item"><i class="fa-solid fa-keyboard"></i> Typing: 30 WPM (EN) / 25 WPM (BN)</div>
+            </div>
+            
+            <div class="btn-group">
+                <a href="contact.html" class="btn"><i class="fa-solid fa-paper-plane"></i> Hire Me</a>
+                <a href="contact.html" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Contact Me</a>
+            </div>
+
+            <div class="social-media">
+                <a href="https://www.facebook.com/ahedali.co" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/ahed-ali-1a391a42a" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="mailto:lalin1622214@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="tel:01620090273" title="Call"><i class="fa-solid fa-phone"></i></a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>7+ Yrs</h3>
+                    <p>Experience</p>
+                </div>
+                <div class="stat-item">
+                    <h3>78+</h3>
+                    <p>Staff Supervised</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24</h3>
+                    <p>Locations Managed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>4,000+</h3>
+                    <p>CCTV Cameras</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<script>
-    function setGreeting() {
-        const hour = new Date().getHours();
-        const greetingText = document.getElementById('greetingText');
-        
-        let msg = "";
-        if (hour >= 5 && hour < 12) {
-            msg = "শুভ সকাল! আমার ডিজিটাল স্পেসে স্বাগতম।";
-        } else if (hour >= 12 && hour < 17) {
-            msg = "শুভ দুপুর! আমার ওয়েবসাইটে স্বাগতম।";
-        } else if (hour >= 17 && hour < 20) {
-            msg = "শুভ সন্ধ্যা! আমার ওয়েবসাইটে স্বাগতম।";
-        } else {
-            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে স্বাগতম।";
+        <div class="home-img">
+            <div class="img-box">
+                <img src="profile.jpg" alt="Ahed Ali Lelin">
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="footer-text">&copy; <span id="year"></span> <span>Ahed Ali Lelin</span>. All Rights Reserved.</p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com/ahedali.co" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="https://www.linkedin.com/in/ahed-ali-1a391a42a" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="mailto:lalin1622214@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        const textArray = [
+            "Administrative Officer",
+            "Operations Executive",
+            "Surveillance Officer",
+            "Operations & Admin Specialist",
+            "Central Control Room Expert",
+            "Data & Advanced Excel Analyst",
+            "Modern Web Designer",
+            "Graphic & Video Creator"
+        ];
+        let textIndex = 0;
+        let charIndex = 0;
+        const typedTextSpan = document.getElementById("typed-text");
+
+        function type() {
+            if (charIndex < textArray[textIndex].length) {
+                typedTextSpan.textContent += textArray[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(type, 100);
+            } else {
+                setTimeout(erase, 2000);
+            }
         }
 
-        greetingText.innerText = msg;
-    }
-    setGreeting();
-</script>
+        function erase() {
+            if (charIndex > 0) {
+                typedTextSpan.textContent = textArray[textIndex].substring(0, charIndex - 1);
+                charIndex--;
+                setTimeout(erase, 50);
+            } else {
+                textIndex = (textIndex + 1) % textArray.length;
+                setTimeout(type, 500);
+            }
+        }
 
+        document.addEventListener("DOMContentLoaded", () => {
+            if (textArray.length) setTimeout(type, 1000);
+        });
+
+        // Background Particles Canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+        const numberOfParticles = 60;
+
+        function resizeCanvas() { 
+            canvas.width = window.innerWidth; 
+            canvas.height = window.innerHeight; 
+        }
+        resizeCanvas();
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = '#00f0ff';
+            }
+            update() {
+                this.x += this.speedX; 
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0; 
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0; 
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.beginPath(); 
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color; 
+                ctx.fill();
+            }
+        }
+
+        function init() { 
+            particlesArray = []; 
+            for (let i = 0; i < numberOfParticles; i++) { 
+                particlesArray.push(new Particle()); 
+            } 
+        }
+
+        function animate() { 
+            ctx.clearRect(0, 0, canvas.width, canvas.height); 
+            for (let i = 0; i < particlesArray.length; i++) { 
+                particlesArray[i].update(); 
+                particlesArray[i].draw(); 
+
+                for (let j = i; j < particlesArray.length; j++) {
+                    const dx = particlesArray[i].x - particlesArray[j].x;
+                    const dy = particlesArray[i].y - particlesArray[j].y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${0.8 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            } 
+            requestAnimationFrame(animate); 
+        }
+
+        init(); 
+        animate();
+    </script>
 </body>
 </html>
