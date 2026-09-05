@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahad Ali Lelin - Welcome</title>
+    <title>আহাদ আলী লেলিন - হোম</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -12,99 +12,209 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Hind Siliguri', sans-serif;
+            font-family: 'Hind Siliguri', 'Segoe UI', sans-serif;
         }
 
         body {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             color: #0f172a;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Navbar (সংগ্রহ পেজের সাথে সম্পূর্ণ ম্যাচিং) */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo i {
+            color: #2563eb;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        /* Main Hero Section Wrapper */
+        .main-wrapper {
+            flex: 1;
+            display: flex;
             align-items: center;
             justify-content: center;
-            padding: 30px 20px;
+            padding: 40px 20px;
         }
 
-        /* Hero Wrapper */
+        /* Hero Card Container */
         .hero-container {
-            max-width: 1100px;
+            max-width: 1200px;
             width: 100%;
             background: #ffffff;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
             display: flex;
-            gap: 40px;
-            align-items: flex-start;
-            /* Entrance Animation */
-            animation: fadeInUp 0.8s ease-out forwards;
+            flex-direction: row;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
         }
 
-        /* Left Column */
+        /* Decorative Background Effect */
+        .hero-container::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            background: #2563eb;
+            filter: blur(150px);
+            opacity: 0.08;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        /* Left Column: Text & Content */
         .hero-content {
-            flex: 1.2;
+            flex: 1 1 50%;
+            padding: 50px 40px;
             display: flex;
             flex-direction: column;
+            justify-content: center;
+            z-index: 1;
         }
 
-        /* Greeting Badge */
+        /* Enhanced Greeting Badge */
         .greeting-badge {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: #e0f2fe;
-            color: #0284c7;
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
+            gap: 10px;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(2, 132, 199, 0.1) 100%);
+            color: #2563eb;
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.95rem;
             font-weight: 600;
             width: fit-content;
-            margin-bottom: 20px;
-            animation: pulseSlow 3s infinite ease-in-out;
+            margin-bottom: 22px;
+            border: 1px solid rgba(37, 99, 235, 0.25);
+        }
+
+        .greeting-badge i {
+            font-size: 1rem;
+            color: #2563eb;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .hero-content h1 {
-            font-size: 2.3rem;
-            font-weight: 700;
+            font-size: 2.6rem;
+            line-height: 1.25;
             color: #0f172a;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            font-weight: 700;
         }
 
         .hero-content h1 span {
-            color: #0284c7;
+            background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .subtitle {
-            font-size: 0.95rem;
+        .hero-content p.subtitle {
+            font-size: 1.05rem;
             color: #475569;
-            margin-bottom: 24px;
-            line-height: 1.5;
+            margin-bottom: 22px;
+            line-height: 1.6;
         }
 
-        /* Quote Box */
+        /* Personal Quote/Bani Box */
         .quote-card {
             background: #f8fafc;
-            border-left: 4px solid #0284c7;
+            border-left: 4px solid #2563eb;
             padding: 16px 20px;
             border-radius: 0 12px 12px 0;
-            margin-bottom: 24px;
-            font-style: italic;
+            margin-bottom: 25px;
+            border-top: 1px solid #f1f5f9;
+            border-right: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .quote-card p {
+            font-size: 0.95rem;
             color: #334155;
-            font-size: 0.9rem;
+            font-style: italic;
             line-height: 1.6;
         }
 
         .quote-card i {
-            color: #0284c7;
+            color: #2563eb;
             margin-right: 6px;
         }
 
-        /* Skills/Badges Section */
         .creative-pills {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 24px;
+            margin-bottom: 30px;
         }
 
         .pill {
@@ -112,305 +222,224 @@
             color: #334155;
             padding: 6px 14px;
             border-radius: 8px;
-            font-size: 0.85rem;
-            border: 1px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.3s ease;
-        }
-
-        .pill:hover {
-            border-color: #0284c7;
-            color: #0284c7;
-            transform: translateY(-2px);
-        }
-
-        /* Works Section Cards */
-        .works-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-bottom: 24px;
-        }
-
-        .work-card {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px 16px;
-            text-decoration: none;
-            color: #0f172a;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Hover Motion for Work Cards */
-        .work-card:hover {
-            border-color: #38bdf8;
-            transform: translateX(6px);
-            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.08);
-        }
-
-        .work-thumb {
-            width: 44px;
-            height: 44px;
-            border-radius: 8px;
-            overflow: hidden;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #e0f2fe;
-            color: #0284c7;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .work-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .work-info h4 {
-            font-size: 0.95rem;
-            color: #0f172a;
-            font-weight: 700;
-            margin-bottom: 2px;
-            transition: color 0.3s ease;
-        }
-
-        .work-card:hover .work-info h4 {
-            color: #0284c7;
-        }
-
-        .work-info p {
-            font-size: 0.78rem;
-            color: #64748b;
+            font-size: 0.88rem;
+            border: 1px solid #cbd5e1;
+            font-weight: 500;
         }
 
         /* Action Buttons */
         .cta-group {
             display: flex;
-            gap: 12px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .btn-primary {
-            background: #0284c7;
+            background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
             color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 26px;
+            border-radius: 10px;
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 600;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(2, 132, 199, 0.2);
         }
 
         .btn-primary:hover {
-            background: #0369a1;
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
         }
 
         .btn-secondary {
             background: #ffffff;
             color: #0f172a;
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 26px;
+            border-radius: 10px;
             text-decoration: none;
-            font-size: 0.9rem;
             font-weight: 600;
             border: 1px solid #cbd5e1;
+            transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: all 0.3s ease;
         }
 
         .btn-secondary:hover {
-            background: #f8fafc;
+            background: #f1f5f9;
             border-color: #94a3b8;
-            transform: translateY(-2px);
         }
 
-        /* Right Column Image Box */
+        /* Right Column: Picture Section */
         .hero-image-wrapper {
-            flex: 1;
+            flex: 1 1 50%;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            z-index: 1;
         }
 
         .image-card {
             position: relative;
-            border-radius: 16px;
+            width: 100%;
+            max-width: 440px;
+            height: 500px;
+            border-radius: 20px;
             overflow: hidden;
-            background: #f8fafc;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            border: 4px solid #ffffff;
         }
 
         .image-card img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
-            border-radius: 16px;
             transition: transform 0.5s ease;
         }
 
         .image-card:hover img {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
-        /* Floating Info Badge on Image */
+        /* Floating Badge */
         .floating-badge {
             position: absolute;
-            bottom: 16px;
-            left: 16px;
-            right: 16px;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
             background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(8px);
-            padding: 12px 16px;
+            backdrop-filter: blur(10px);
+            padding: 12px 18px;
             border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            color: #0f172a;
             display: flex;
             align-items: center;
             gap: 12px;
-            border: 1px solid #ffffff;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
         }
 
         .floating-badge i {
-            font-size: 1.2rem;
-            color: #0284c7;
+            font-size: 1.4rem;
+            color: #2563eb;
         }
 
         .floating-badge div strong {
             display: block;
-            font-size: 0.9rem;
-            color: #0f172a;
+            font-size: 0.95rem;
         }
 
         .floating-badge div span {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #64748b;
         }
 
-        /* Keyframe Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulseSlow {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.75; }
-        }
-
-        /* Responsive Layout */
+        /* Responsive Adjustments */
         @media (max-width: 900px) {
             .hero-container {
                 flex-direction: column-reverse;
-                padding: 24px;
+            }
+            .hero-content {
+                padding: 30px 24px;
             }
             .hero-image-wrapper {
+                padding: 30px 24px 0;
                 width: 100%;
             }
+            .image-card {
+                height: 380px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0; right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 16px;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            .nav-links.show { display: flex; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .floating-badge { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="hero-container">
-    <!-- বাম পাশের টেক্সট ও কন্টেন্ট সেকশন -->
-    <div class="hero-content">
-        <div class="greeting-badge" id="greetingBox">
-            <span id="greetingText">শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।</span>
-        </div>
-
-        <h1>আমি <span>আহাদ আলী লেলিন</span></h1>
-        
-        <p class="subtitle">
-            Results-driven Operations & Administrative Professional (7+ Yrs Exp) | VSO (OP) at United Group | MSS in Economics
-        </p>
-
-        <div class="quote-card">
-            <p>
-                <i class="fa-solid fa-quote-left"></i>
-                "শব্দ যখন সুরের ছোঁয়া পায়, চিন্তারা তখন মেলে ডানা। পেশাগত দক্ষতার পাশাপাশি শিল্পের নিভৃত সাধনাই আমার জীবনের আসল ছন্দ ও অনুপ্রেরণা।"
-            </p>
-        </div>
-
-        <div class="creative-pills">
-            <span class="pill"><i class="fa-solid fa-user-shield"></i> Surveillance Expert</span>
-            <span class="pill"><i class="fa-solid fa-chart-line"></i> Operations Specialist</span>
-            <span class="pill"><i class="fa-solid fa-pen-nib"></i> কবি ও লেখক</span>
-            <span class="pill"><i class="fa-solid fa-keyboard"></i> 30 WPM (EN) / 25 WPM (BN)</span>
-        </div>
-
-        <!-- ৪টি কাজের লিস্ট/কার্ড -->
-        <div class="works-section">
-            <a href="literature.html" class="work-card">
-                <div class="work-thumb">আ</div>
-                <div class="work-info">
-                    <h4>আমার পছন্দের সাহিত্য কর্ম</h4>
-                    <p>Published • Aug 25</p>
-                </div>
-            </a>
-
-            <a href="thoughts.html" class="work-card">
-                <div class="work-thumb">আ</div>
-                <div class="work-info">
-                    <h4>আমার ভাবনার ক্যানভাস ও কলমের ছোঁয়া</h4>
-                    <p>Published • Aug 5</p>
-                </div>
-            </a>
-
-            <a href="contact.html" class="work-card">
-                <div class="work-thumb">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXiFvoAgD3LmuV7Ti09lcJJsdtjj3RjTUTl2nLhZm1MGDW4Y0uuXVt1nUaSXCTrUweSzuA4vUbF_8LPqtyGAes6x8AN7yya-GpgjA0CuGXr1Lxwrb5G5pl7-Nn9wb7mqkGrU5sSTg0UZAXM4d5CzMOXsSBIWjU7dImYlit8cv2FQz2fuPtJj85u0AvJs/s1600/Gemini_Generated_Image_cgysb5cgysb5cgys.jfif" alt="Contact">
-                </div>
-                <div class="work-info">
-                    <h4>Contact Me / যোগাযোগ</h4>
-                    <p>Published • Aug 5</p>
-                </div>
-            </a>
-
-            <a href="about.html" class="work-card">
-                <div class="work-thumb">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXiFvoAgD3LmuV7Ti09lcJJsdtjj3RjTUTl2nLhZm1MGDW4Y0uuXVt1nUaSXCTrUweSzuA4vUbF_8LPqtyGAes6x8AN7yya-GpgjA0CuGXr1Lxwrb5G5pl7-Nn9wb7mqkGrU5sSTg0UZAXM4d5CzMOXsSBIWjU7dImYlit8cv2FQz2fuPtJj85u0AvJs/s1600/Gemini_Generated_Image_cgysb5cgysb5cgys.jfif" alt="About">
-                </div>
-                <div class="work-info">
-                    <h4>About Me / আমার সম্পর্কে</h4>
-                    <p>Published • Aug 5</p>
-                </div>
-            </a>
-        </div>
-
-        <div class="cta-group">
-            <a href="about.html" class="btn-primary"><i class="fa-solid fa-user"></i> আমার সম্পর্কে জানুন</a>
-            <a href="contact.html" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> যোগাযোগ করুন</a>
-        </div>
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">
+            <i class="fa-solid fa-book-open"></i> আহাদ আলী লেলিন
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active">হোম</a></li>
+            <li><a href="#">সংগ্রহ</a></li>
+            <li><a href="#">ভাবনার ক্যানভাস</a></li>
+            <li><a href="#">আমার সম্পর্কে</a></li>
+            <li><a href="#">যোগাযোগ</a></li>
+        </ul>
     </div>
+</nav>
 
-    <!-- ডান পাশের ছবি ও ব্যাজ সেকশন -->
-    <div class="hero-image-wrapper">
-        <div class="image-card">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXiFvoAgD3LmuV7Ti09lcJJsdtjj3RjTUTl2nLhZm1MGDW4Y0uuXVt1nUaSXCTrUweSzuA4vUbF_8LPqtyGAes6x8AN7yya-GpgjA0CuGXr1Lxwrb5G5pl7-Nn9wb7mqkGrU5sSTg0UZAXM4d5CzMOXsSBIWjU7dImYlit8cv2FQz2fuPtJj85u0AvJs/s1600/Gemini_Generated_Image_cgysb5cgysb5cgys.jfif" alt="আহাদ আলী লেলিন">
+<!-- Main Banner -->
+<div class="main-wrapper">
+    <div class="hero-container">
+        <div class="hero-content">
+            <div class="greeting-badge" id="greetingBox">
+                <i class="fa-solid fa-sparkles"></i> 
+                <span id="greetingText">স্বাগতম!</span>
+            </div>
+
+            <h1>আমি <span>আহাদ আলী লেলিন</span></h1>
             
-            <div class="floating-badge">
-                <i class="fa-solid fa-circle-check"></i>
-                <div>
-                    <strong>আহাদ আলী লেলিন</strong>
-                    <span>VSO (OP) | United Group</span>
+            <p class="subtitle">
+                কর্পোরেট সার্ভেইল্যান্স অপারেশনের পাশাপাশি ডিজিটাল মার্কেটিং, সাহিত্যচর্চা ও সুরের ভুবনে নিজেকে প্রকাশ করতে ভালোবাসি।
+            </p>
+
+            <div class="quote-card">
+                <p>
+                    <i class="fa-solid fa-quote-left"></i>
+                    "শব্দ যখন সুরের ছোঁয়া পায়, চিন্তারা তখন মেলে ডানা। পেশাগত দক্ষতার পাশাপাশি শিল্পের নিভৃত সাধনাই আমার জীবনের আসল ছন্দ ও অনুপ্রেরণা।"
+                </p>
+            </div>
+
+            <div class="creative-pills">
+                <span class="pill"><i class="fa-solid fa-shield-halved"></i> Surveillance Expert</span>
+                <span class="pill"><i class="fa-solid fa-bullhorn"></i> Digital Marketer</span>
+                <span class="pill"><i class="fa-solid fa-pen-nib"></i> কবি ও লেখক</span>
+                <span class="pill"><i class="fa-solid fa-music"></i> আবৃত্তিশিল্পী & গায়ক</span>
+            </div>
+
+            <div class="cta-group">
+                <a href="#about" class="btn-primary"><i class="fa-solid fa-user"></i> আমার সম্পর্কে জানুন</a>
+                <a href="#contact" class="btn-secondary"><i class="fa-solid fa-paper-plane"></i> যোগাযোগ করুন</a>
+            </div>
+        </div>
+
+        <div class="hero-image-wrapper">
+            <div class="image-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgYXiFvoAgD3LmuV7Ti09lcJJsdtjj3RjTUTl2nLhZm1MGDW4Y0uuXVt1nUaSXCTrUweSzuA4vUbF_8LPqtyGAes6x8AN7yya-GpgjA0CuGXr1Lxwrb5G5pl7-Nn9wb7mqkGrU5sSTg0UZAXM4d5CzMOXsSBIWjU7dImYlit8cv2FQz2fuPtJj85u0AvJs/s1600/Gemini_Generated_Image_cgysb5cgysb5cgys.jfif" alt="আহাদ আলী লেলিন">
+                
+                <div class="floating-badge">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <div>
+                        <strong>আহাদ আলী লেলিন</strong>
+                        <span>VSO (OP) | United Group</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -418,7 +447,7 @@
 </div>
 
 <script>
-    // ডাইনামিক গ্রিটিং স্ক্রিপ্ট
+    // ডাইনামিক গ্রিটিং ফাংশন
     function setGreeting() {
         const hour = new Date().getHours();
         const greetingText = document.getElementById('greetingText');
@@ -431,7 +460,7 @@
         } else if (hour >= 17 && hour < 20) {
             msg = "শুভ সন্ধ্যা! আমার ওয়েবসাইটে আপনাকে স্বাগতম।";
         } else {
-            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।";
+            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।";
         }
 
         const parser = new DOMParser();
@@ -439,6 +468,11 @@
         greetingText.innerText = decodedMsg;
     }
     setGreeting();
+
+    // মোবাইল নেভিগেশন মেনু
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('show');
+    }
 </script>
 
 </body>
