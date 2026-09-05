@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আমার পছন্দের সংগ্রহ</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f6f9; color: #333; padding: 20px; }
+        .container { max-width: 1000px; margin: 0 auto; }
+        header { text-align: center; margin-bottom: 30px; }
+        header h1 { color: #2c3e50; margin-bottom: 10px; font-size: 2.2rem; }
+        header p { color: #64748b; }
+
+        .admin-panel {
+            display: none;
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border: 2px solid #2563eb;
+        }
+        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .logout-btn { background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; color: #475569; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none;
+        }
+        .submit-btn { background: #16a34a; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; width: 100%; }
+        .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
+
+        .filter-buttons { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        .filter-btn { background-color: #ffffff; border: 1px solid #cbd5e1; padding: 10px 24px; border-radius: 25px; cursor: pointer; font-weight: 600; color: #475569; }
+        .filter-btn:hover, .filter-btn.active { background-color: #2563eb; color: #ffffff; border-color: #2563eb; }
+
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .card { background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04); cursor: pointer; border: 1px solid #f1f5f9; display: flex; flex-direction: column; overflow: hidden; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08); }
+        
+        .card-img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
+        .modal-img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+
+        .badge { align-self: flex-start; padding: 5px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 14px; }
+        .badge-নাটক { background-color: #ffe4e6; color: #e11d48; }
+        .badge-উপন্যাস { background-color: #dbeafe; color: #2563eb; }
+        .badge-গল্প { background-color: #dcfce7; color: #16a34a; }
+        .badge-কবিতা { background-color: #fef3c7; color: #d97706; }
+
+        .card h3 { color: #1e293b; margin-bottom: 8px; font-size: 1.25rem; }
+        .author { color: #64748b; font-size: 0.9rem; margin-bottom: 14px; font-style: italic; }
+        .description { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
+        .read-more { margin-top: auto; color: #2563eb; font-weight: bold; font-size: 0.9rem; }
+
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); display: none; justify-content: center; align-items: center; padding: 20px; z-index: 1000; }
+        .modal-content { background: #ffffff; width: 100%; max-width: 650px; max-height: 85vh; border-radius: 20px; padding: 30px; overflow-y: auto; position: relative; }
+        .close-btn { position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; z-index: 10; }
+        
+        .admin-trigger { position: fixed; bottom: 15px; right: 15px; background: rgba(0,0,0,0.05); color: #94a3b8; border: none; padding: 6px 10px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; }
+        .loading-text { text-align: center; font-size: 1.1rem; color: #64748b; grid-column: 1 / -1; }
+    </style>
+
+    <!-- Firebase Scripts Load Dynamically -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>আমার পছন্দের সংগ্রহ</h1>
+        <p>আমার প্রিয় নাটক, উপন্যাস, গল্প ও কবিতা</p>
+    </header>
+
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h3>নতুন লেখা যুক্ত করুন (অ্যাডমিন প্যানেল)</h3>
+            <button class="logout-btn" onclick="hideAdminPanel()">লুকান</button>
+        </div>
+        <form id="itemForm">
+            <div class="form-group">
+                <label>ক্যাটাগরি</label>
+                <select id="itemType" required>
+                    <option value="কবিতা">কবিতা</option>
+                    <option value="গল্প">গল্প</option>
+                    <option value="উপন্যাস">উপন্যাস</option>
+                    <option value="নাটক">নাটক</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>শিরোনাম</label>
+                <input type="text" id="itemTitle" required placeholder="যেমন: পাছে লোকে কিছু বলে">
+            </div>
+            <div class="form-group">
+                <label>লেখক</label>
+                <input type="text" id="itemAuthor" required placeholder="যেমন: কামিনী রায়">
+            </div>
+            <div class="form-group">
+                <label>ছবির লিঙ্ক / Image URL (অপশনাল)</label>
+                <input type="url" id="itemImageUrl" placeholder="https://example.com/image.jpg (খালি রাখলেও চলবে)">
+            </div>
+            <div class="form-group">
+                <label>ছোট বিবরণ (সংক্ষেপে)</label>
+                <input type="text" id="itemDesc" required placeholder="সংক্ষিপ্ত বিবরণ...">
+            </div>
+            <div class="form-group">
+                <label>সম্পূর্ণ লেখা (বিস্তারিত)</label>
+                <textarea id="itemFullContent" rows="6" required placeholder="সম্পূর্ণ কবিতা বা গল্প লিখুন..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="saveBtn">Save / সেভ করুন</button>
+        </form>
+    </div>
+
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterSelection('সব', this)">সবগুলো</button>
+        <button class="filter-btn" onclick="filterSelection('নাটক', this)">নাটক</button>
+        <button class="filter-btn" onclick="filterSelection('উপন্যাস', this)">উপন্যাস</button>
+        <button class="filter-btn" onclick="filterSelection('গল্প', this)">গল্প</button>
+        <button class="filter-btn" onclick="filterSelection('কবিতা', this)">কবিতা</button>
+    </div>
+
+    <div class="grid-container" id="contentGrid">
+        <div class="loading-text">ডাটা লোড হচ্ছে...</div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeModal()">✕</button>
+        <div id="modalImageContainer"></div>
+        <span class="badge" id="modalBadge"></span>
+        <h2 id="modalTitle" style="margin-top: 10px;"></h2>
+        <div class="author" id="modalAuthor" style="margin-top: 5px;"></div>
+        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <div class="modal-body" id="modalBody" style="line-height: 1.8;"></div>
+    </div>
+</div>
+
+<button class="admin-trigger" onclick="showAdminPanel()">🔑 Admin Login</button>
+
+<script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyCUFnabuAwrDzdLKmuJdu8L3Ix-6RtmFYw",
+        authDomain: "my-favorite-afd36.firebaseapp.com",
+        projectId: "my-favorite-afd36",
+        storageBucket: "my-favorite-afd36.firebasestorage.app",
+        messagingSenderId: "946815901030",
+        appId: "1:946815901030:web:b36846c356f8f97edbfca7"
+    };
+
+    if (!firebase.apps.length) {
+        firebase.initializeApp(firebaseConfig);
+    }
+    var db = firebase.firestore();
+
+    var ADMIN_PASSWORD = "4858"; 
+    var allData = [];
+
+    function fetchPosts() {
+        var grid = document.getElementById("contentGrid");
+        grid.innerHTML = '<div class="loading-text">ডাটা লোড হচ্ছে...</div>';
+        
+        db.collection("collection").get().then(function(querySnapshot) {
+            allData = [];
+            querySnapshot.forEach(function(doc) {
+                var d = doc.data();
+                d.id = doc.id;
+                allData.push(d);
+            });
+            displayContent(allData);
+        }).catch(function(error) {
+            console.error("Error loading docs: ", error);
+            grid.innerHTML = '<div class="loading-text">ডাটা লোড করতে সমস্যা হয়েছে: ' + error.message + '</div>';
+        });
+    }
+
+    document.getElementById("itemForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        var saveBtn = document.getElementById("saveBtn");
+        saveBtn.innerText = "Saving...";
+        saveBtn.disabled = true;
+
+        var imageUrl = document.getElementById("itemImageUrl").value.trim();
+
+        db.collection("collection").add({
+            type: document.getElementById("itemType").value,
+            title: document.getElementById("itemTitle").value,
+            author: document.getElementById("itemAuthor").value,
+            description: document.getElementById("itemDesc").value,
+            fullContent: document.getElementById("itemFullContent").value,
+            imageUrl: imageUrl,
+            createdAt: new Date().getTime()
+        }).then(function() {
+            alert("সফলভাবে যুক্ত হয়েছে!");
+            document.getElementById("itemForm").reset();
+            fetchPosts();
+        }).catch(function(error) {
+            alert("Error: " + error.message);
+        }).finally(function() {
+            saveBtn.innerText = "Save / সেভ করুন";
+            saveBtn.disabled = false;
+        });
+    });
+
+    function displayContent(items) {
+        var grid = document.getElementById("contentGrid");
+        grid.innerHTML = "";
+
+        if(!items || items.length === 0) {
+            grid.innerHTML = '<div class="loading-text">কোনো তথ্য নেই। অ্যাডমিন থেকে নতুন লেখা যুক্ত করুন।</div>';
+            return;
+        }
+
+        items.forEach(function(item) {
+            var card = document.createElement("div");
+            card.className = "card";
+            card.onclick = function() { openModal(item); };
+            
+            var imgHTML = (item.imageUrl && item.imageUrl !== "") 
+                ? '<img src="' + item.imageUrl + '" class="card-img">' 
+                : '';
+
+            card.innerHTML = imgHTML +
+                '<span class="badge badge-' + (item.type || 'কবিতা') + '">' + (item.type || 'কবিতা') + '</span>' +
+                '<h3>' + (item.title || '') + '</h3>' +
+                '<div class="author">লেখক: ' + (item.author || 'অজানা') + '</div>' +
+                '<div class="description">' + (item.description || '') + '</div>' +
+                '<div class="read-more">বিস্তারিত পড়ুন →</div>';
+            
+            grid.appendChild(card);
+        });
+    }
+
+    function filterSelection(category, btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(function(btn) { btn.classList.remove('active'); });
+        btnElement.classList.add('active');
+        if (category === 'সব') displayContent(allData);
+        else displayContent(allData.filter(function(item) { return item.type === category; }));
+    }
+
+    function showAdminPanel() {
+        var pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+        if (pass === ADMIN_PASSWORD) {
+            document.getElementById("adminPanel").style.display = "block";
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (pass !== null) {
+            alert("ভুল পাসওয়ার্ড!");
+        }
+    }
+
+    function hideAdminPanel() {
+        document.getElementById("adminPanel").style.display = "none";
+    }
+
+    function openModal(item) {
+        document.getElementById("modalTitle").innerText = item.title || '';
+        document.getElementById("modalAuthor").innerText = "লেখক: " + (item.author || 'অজানা');
+        
+        var fullContentText = item.fullContent ? item.fullContent.replace(/\n/g, "<br>") : '';
+        document.getElementById("modalBody").innerHTML = fullContentText;
+        
+        var imgContainer = document.getElementById("modalImageContainer");
+        if(item.imageUrl && item.imageUrl !== "") {
+            imgContainer.innerHTML = '<img src="' + item.imageUrl + '" class="modal-img">';
+        } else {
+            imgContainer.innerHTML = '';
+        }
+
+        var badge = document.getElementById("modalBadge");
+        badge.innerText = item.type || 'কবিতা';
+        badge.className = 'badge badge-' + (item.type || 'কবিতা');
+        document.getElementById("modalOverlay").style.display = "flex";
+    }
+
+    function closeModal() {
+        document.getElementById("modalOverlay").style.display = "none";
+    }
+
+    // Load Data directly on script load
+    fetchPosts();
+</script>
+</body>
+</html>
