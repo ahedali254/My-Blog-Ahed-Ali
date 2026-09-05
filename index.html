@@ -24,7 +24,7 @@
             overflow-x: hidden;
         }
 
-        /* Top Navbar (সংগ্রহ পেজের সাথে সম্পূর্ণ ম্যাচিং) */
+        /* Top Navbar (সংগ্রহ পেজের সাথে হুবহু এক) */
         .navbar {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
@@ -88,7 +88,7 @@
             cursor: pointer;
         }
 
-        /* Main Hero Section Wrapper */
+        /* Hero Wrapper */
         .main-wrapper {
             flex: 1;
             display: flex;
@@ -97,7 +97,6 @@
             padding: 40px 20px;
         }
 
-        /* Hero Card Container */
         .hero-container {
             max-width: 1200px;
             width: 100%;
@@ -112,7 +111,6 @@
             position: relative;
         }
 
-        /* Decorative Background Effect */
         .hero-container::before {
             content: '';
             position: absolute;
@@ -120,42 +118,41 @@
             left: -100px;
             width: 300px;
             height: 300px;
-            background: #2563eb;
+            background: #0284c7;
             filter: blur(150px);
             opacity: 0.08;
             border-radius: 50%;
             z-index: 0;
         }
 
-        /* Left Column: Text & Content */
+        /* Content Left */
         .hero-content {
             flex: 1 1 50%;
-            padding: 50px 40px;
+            padding: 45px 35px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             z-index: 1;
         }
 
-        /* Enhanced Greeting Badge */
         .greeting-badge {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1) 0%, rgba(2, 132, 199, 0.1) 100%);
-            color: #2563eb;
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.12) 0%, rgba(37, 99, 235, 0.12) 100%);
+            color: #0284c7;
             padding: 8px 18px;
             border-radius: 50px;
             font-size: 0.95rem;
-            font-weight: 600;
+            font-weight: 700;
             width: fit-content;
-            margin-bottom: 22px;
-            border: 1px solid rgba(37, 99, 235, 0.25);
+            margin-bottom: 20px;
+            border: 1.5px solid rgba(2, 132, 199, 0.25);
         }
 
         .greeting-badge i {
             font-size: 1rem;
-            color: #2563eb;
+            color: #0284c7;
             animation: pulse 2s infinite;
         }
 
@@ -166,15 +163,15 @@
         }
 
         .hero-content h1 {
-            font-size: 2.6rem;
+            font-size: 2.5rem;
             line-height: 1.25;
             color: #0f172a;
-            margin-bottom: 16px;
+            margin-bottom: 15px;
             font-weight: 700;
         }
 
         .hero-content h1 span {
-            background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -182,15 +179,14 @@
         .hero-content p.subtitle {
             font-size: 1.05rem;
             color: #475569;
-            margin-bottom: 22px;
+            margin-bottom: 20px;
             line-height: 1.6;
         }
 
-        /* Personal Quote/Bani Box */
         .quote-card {
             background: #f8fafc;
-            border-left: 4px solid #2563eb;
-            padding: 16px 20px;
+            border-left: 4px solid #0284c7;
+            padding: 15px 20px;
             border-radius: 0 12px 12px 0;
             margin-bottom: 25px;
             border-top: 1px solid #f1f5f9;
@@ -206,7 +202,7 @@
         }
 
         .quote-card i {
-            color: #2563eb;
+            color: #0284c7;
             margin-right: 6px;
         }
 
@@ -214,7 +210,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 28px;
         }
 
         .pill {
@@ -227,7 +223,6 @@
             font-weight: 500;
         }
 
-        /* Action Buttons */
         .cta-group {
             display: flex;
             gap: 15px;
@@ -235,13 +230,13 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
             color: #ffffff;
             padding: 12px 26px;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+            box-shadow: 0 4px 15px rgba(2, 132, 199, 0.25);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -250,7 +245,7 @@
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.35);
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
         }
 
         .btn-secondary {
@@ -272,14 +267,14 @@
             border-color: #94a3b8;
         }
 
-        /* Right Column: Picture Section */
+        /* Image Right */
         .hero-image-wrapper {
             flex: 1 1 50%;
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
+            padding: 35px;
             z-index: 1;
         }
 
@@ -287,7 +282,7 @@
             position: relative;
             width: 100%;
             max-width: 440px;
-            height: 500px;
+            height: 480px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
@@ -306,7 +301,6 @@
             transform: scale(1.03);
         }
 
-        /* Floating Badge */
         .floating-badge {
             position: absolute;
             bottom: 20px;
@@ -326,7 +320,7 @@
 
         .floating-badge i {
             font-size: 1.4rem;
-            color: #2563eb;
+            color: #0284c7;
         }
 
         .floating-badge div strong {
@@ -339,20 +333,20 @@
             color: #64748b;
         }
 
-        /* Responsive Adjustments */
+        /* Mobile View Response */
         @media (max-width: 900px) {
             .hero-container {
                 flex-direction: column-reverse;
             }
             .hero-content {
-                padding: 30px 24px;
+                padding: 30px 20px;
             }
             .hero-image-wrapper {
-                padding: 30px 24px 0;
+                padding: 24px 20px 0;
                 width: 100%;
             }
             .image-card {
-                height: 380px;
+                height: 360px;
             }
         }
 
@@ -376,7 +370,7 @@
 </head>
 <body>
 
-<!-- Navbar -->
+<!-- Global Navbar -->
 <nav class="navbar">
     <div class="nav-container">
         <a href="#" class="nav-logo">
@@ -395,7 +389,7 @@
     </div>
 </nav>
 
-<!-- Main Banner -->
+<!-- Main Container -->
 <div class="main-wrapper">
     <div class="hero-container">
         <div class="hero-content">
@@ -421,7 +415,7 @@
                 <span class="pill"><i class="fa-solid fa-shield-halved"></i> Surveillance Expert</span>
                 <span class="pill"><i class="fa-solid fa-bullhorn"></i> Digital Marketer</span>
                 <span class="pill"><i class="fa-solid fa-pen-nib"></i> কবি ও লেখক</span>
-                <span class="pill"><i class="fa-solid fa-music"></i> আবৃত্তিশিল্পী & গায়ক</span>
+                <span class="pill"><i class="fa-solid fa-music"></i> আবৃত্তিশিল্পী &amp; গায়ক</span>
             </div>
 
             <div class="cta-group">
@@ -447,7 +441,7 @@
 </div>
 
 <script>
-    // ডাইনামিক গ্রিটিং ফাংশন
+    // ডাইনামিক সময়ের সাথে অভিবাদন
     function setGreeting() {
         const hour = new Date().getHours();
         const greetingText = document.getElementById('greetingText');
@@ -460,7 +454,7 @@
         } else if (hour >= 17 && hour < 20) {
             msg = "শুভ সন্ধ্যা! আমার ওয়েবসাইটে আপনাকে স্বাগতম।";
         } else {
-            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।";
+            msg = "শুভ রাত! আমার ডিজিটাল নীড়ে আপনাকে স্বাগতম।";
         }
 
         const parser = new DOMParser();
@@ -469,7 +463,7 @@
     }
     setGreeting();
 
-    // মোবাইল নেভিগেশন মেনু
+    // মোবাইল ড্রপডাউন মেনু
     function toggleMenu() {
         document.getElementById('navLinks').classList.toggle('show');
     }
