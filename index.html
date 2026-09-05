@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ahad Ali Lelin - Modern Portfolio</title>
+    <title>Ahad Ali Lelin - Ultra Modern Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -16,172 +16,178 @@
         }
 
         body {
-            background-color: #0b0f19;
-            color: #f8fafc;
+            background-color: #030712;
+            color: #f3f4f6;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 30px 20px;
             overflow-x: hidden;
         }
 
-        /* Glassmorphism Hero Container */
+        /* Ambient Glow Backgrounds */
+        .bg-glow-1 {
+            position: fixed;
+            top: 5%;
+            left: 5%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(14, 165, 233, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .bg-glow-2 {
+            position: fixed;
+            bottom: 5%;
+            right: 5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Full Width & Large Container */
         .hero-container {
-            max-width: 1100px;
+            max-width: 1400px;
             width: 100%;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 28px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(14, 165, 233, 0.1);
+            min-height: 80vh;
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
             display: flex;
             flex-direction: row;
             align-items: center;
-            overflow: hidden;
             position: relative;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        /* Neon Glow Orbs */
-        .hero-container::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: -100px;
-            width: 350px;
-            height: 350px;
-            background: #0284c7;
-            filter: blur(140px);
-            opacity: 0.25;
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .hero-container::after {
-            content: '';
-            position: absolute;
-            bottom: -100px;
-            right: -100px;
-            width: 350px;
-            height: 350px;
-            background: #3b82f6;
-            filter: blur(140px);
-            opacity: 0.2;
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        /* Left Column: Text & Content */
+        /* Left Column: Content Section */
         .hero-content {
-            flex: 1 1 50%;
-            padding: 50px 40px;
+            flex: 1.2;
+            padding: 60px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            z-index: 1;
         }
 
         .greeting-badge {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background: rgba(14, 165, 233, 0.15);
+            background: rgba(14, 165, 233, 0.1);
             color: #38bdf8;
-            padding: 8px 18px;
+            padding: 10px 22px;
             border-radius: 50px;
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
             width: fit-content;
             margin-bottom: 25px;
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.1);
         }
 
         .hero-content h1 {
-            font-size: 2.8rem;
-            line-height: 1.2;
+            font-size: 3.5rem;
+            line-height: 1.15;
             color: #ffffff;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
             font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hero-content h1 span {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero-content p.subtitle {
-            font-size: 1.1rem;
-            color: #94a3b8;
-            margin-bottom: 25px;
-            line-height: 1.6;
+            font-size: 1.2rem;
+            color: #9ca3af;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            max-width: 680px;
         }
 
-        /* Modern Quote Box */
+        /* Dashing Quote Card */
         .quote-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
             border-left: 4px solid #38bdf8;
-            padding: 16px 20px;
-            border-radius: 4px 14px 14px 4px;
-            margin-bottom: 28px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 20px 24px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 35px;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-right: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .quote-card p {
-            font-size: 0.95rem;
-            color: #cbd5e1;
+            font-size: 1.05rem;
+            color: #d1d5db;
             font-style: italic;
             line-height: 1.6;
         }
 
         .quote-card i {
             color: #38bdf8;
-            margin-right: 6px;
+            margin-right: 8px;
         }
 
         .creative-pills {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 35px;
+            gap: 12px;
+            margin-bottom: 40px;
         }
 
         .pill {
-            background: rgba(255, 255, 255, 0.05);
-            color: #e2e8f0;
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-size: 0.88rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.04);
+            color: #e5e7eb;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             font-weight: 500;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .pill:hover {
-            background: rgba(56, 189, 248, 0.1);
-            border-color: rgba(56, 189, 248, 0.4);
+        .pill i {
             color: #38bdf8;
         }
 
-        /* Modern CTA Buttons */
+        .pill:hover {
+            background: rgba(56, 189, 248, 0.12);
+            border-color: rgba(56, 189, 248, 0.4);
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        /* Action Buttons */
         .cta-group {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
             color: #ffffff;
-            padding: 14px 30px;
-            border-radius: 14px;
+            padding: 16px 36px;
+            border-radius: 16px;
             text-decoration: none;
             font-weight: 600;
-            box-shadow: 0 4px 20px rgba(2, 132, 199, 0.4);
+            font-size: 1.05rem;
+            box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.5);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -190,17 +196,18 @@
 
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(2, 132, 199, 0.6);
+            box-shadow: 0 15px 30px -5px rgba(2, 132, 199, 0.7);
         }
 
         .btn-secondary {
             background: rgba(255, 255, 255, 0.05);
             color: #ffffff;
-            padding: 14px 30px;
-            border-radius: 14px;
+            padding: 16px 36px;
+            border-radius: 16px;
             text-decoration: none;
             font-weight: 600;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            font-size: 1.05rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
@@ -210,27 +217,27 @@
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.1);
             border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
         }
 
-        /* Right Column: Dynamic Image Section */
+        /* Right Column: Large Dynamic Image Showcase */
         .hero-image-wrapper {
-            flex: 1 1 50%;
-            position: relative;
+            flex: 0.9;
+            height: 100%;
+            padding: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px;
-            z-index: 1;
         }
 
         .image-card {
             position: relative;
             width: 100%;
-            max-width: 440px;
-            height: 500px;
-            border-radius: 24px;
+            max-width: 500px;
+            height: 580px;
+            border-radius: 28px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -239,70 +246,92 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.6s ease;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .image-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.06);
         }
 
-        /* Glowing Badge overlay */
+        /* Floating Info Badge Over Image */
         .floating-badge {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(12px);
-            padding: 14px 20px;
-            border-radius: 16px;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 18px 24px;
+            border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.15);
             color: #ffffff;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .floating-badge i {
-            font-size: 1.6rem;
+            font-size: 1.8rem;
             color: #38bdf8;
         }
 
         .floating-badge div strong {
             display: block;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
         }
 
         .floating-badge div span {
-            font-size: 0.82rem;
-            color: #94a3b8;
+            font-size: 0.9rem;
+            color: #9ca3af;
         }
 
-        /* Responsive Mobile Layout */
-        @media (max-width: 900px) {
+        /* Responsive Breakpoints */
+        @media (max-width: 1100px) {
             .hero-container {
                 flex-direction: column-reverse;
-            }
-            .hero-content, .hero-image-wrapper {
-                flex: 1 1 100%;
-                width: 100%;
+                min-height: auto;
             }
             .hero-content {
-                padding: 30px 25px;
+                padding: 40px 30px;
             }
             .hero-image-wrapper {
-                padding: 25px 25px 0 25px;
+                padding: 40px 30px 0 30px;
+                width: 100%;
             }
             .image-card {
-                height: 380px;
+                height: 450px;
+            }
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
             }
             .hero-content h1 {
                 font-size: 2.2rem;
+            }
+            .image-card {
+                height: 360px;
+            }
+            .cta-group {
+                flex-direction: column;
+            }
+            .btn-primary, .btn-secondary {
+                justify-content: center;
+                width: 100%;
             }
         }
     </style>
 </head>
 <body>
+
+<div class="bg-glow-1"></div>
+<div class="bg-glow-2"></div>
 
 <div class="hero-container">
     <div class="hero-content">
