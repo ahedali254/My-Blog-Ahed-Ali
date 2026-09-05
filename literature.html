@@ -21,19 +21,17 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            overflow-x: hidden;
         }
 
-        /* Top Navigation Bar with Motion */
+        /* Top Navbar */
         .navbar {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid #e2e8f0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
         }
 
         .nav-container {
@@ -53,16 +51,10 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: transform 0.3s ease;
-        }
-
-        .nav-logo:hover {
-            transform: scale(1.02);
         }
 
         .nav-logo i {
             color: #2563eb;
-            animation: floatIcon 3s infinite ease-in-out;
         }
 
         .nav-links {
@@ -78,8 +70,7 @@
             font-weight: 500;
             padding: 8px 16px;
             border-radius: 8px;
-            position: relative;
-            transition: all 0.3s ease;
+            transition: all 0.25s ease;
         }
 
         .nav-links a:hover, .nav-links a.active {
@@ -96,19 +87,18 @@
             cursor: pointer;
         }
 
-        /* Header Animation */
+        /* Page Header */
         .page-header {
             text-align: center;
-            padding: 50px 20px 30px;
-            animation: fadeInDown 0.8s ease-out;
+            padding: 40px 20px 20px;
+            animation: fadeInDown 0.6s ease-out;
         }
 
         .page-header h1 {
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 8px;
-            letter-spacing: -0.5px;
         }
 
         .page-header p {
@@ -116,231 +106,171 @@
             color: #64748b;
         }
 
-        /* Interactive Filter Buttons with Motion */
+        /* Filter Buttons */
         .filter-container {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
-            padding: 0 20px 40px;
-            animation: fadeInUp 0.8s ease-out;
+            padding: 0 20px 30px;
         }
 
         .filter-btn {
             background: #ffffff;
             border: 1px solid #cbd5e1;
             color: #475569;
-            padding: 8px 24px;
-            border-radius: 25px;
+            padding: 8px 22px;
+            border-radius: 20px;
             font-size: 0.95rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            outline: none;
+            transition: all 0.3s ease;
         }
 
         .filter-btn:hover {
             border-color: #2563eb;
             color: #2563eb;
-            transform: translateY(-3px) scale(1.03);
-            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.1);
         }
 
         .filter-btn.active {
             background: #2563eb;
             color: #ffffff;
             border-color: #2563eb;
-            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
-            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
 
-        /* Content Grid */
+        /* Grid Layout */
         .grid-container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px 60px;
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 28px;
+            gap: 24px;
             width: 100%;
+            align-items: start;
         }
 
-        /* Animated Work Cards */
+        /* Cards and Text Expansion */
         .card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 18px;
-            padding: 26px;
+            border-radius: 16px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            opacity: 1;
-            transform: translateY(0) scale(1);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
             border-color: #93c5fd;
         }
 
         .category-tag {
             display: inline-block;
-            padding: 4px 14px;
-            border-radius: 8px;
+            padding: 4px 12px;
+            border-radius: 6px;
             font-size: 0.8rem;
             font-weight: 600;
             width: fit-content;
-            margin-bottom: 16px;
-            transition: transform 0.3s ease;
-        }
-
-        .card:hover .category-tag {
-            transform: scale(1.05);
+            margin-bottom: 14px;
         }
 
         .tag-story { background: #dcfce7; color: #166534; }
         .tag-novel { background: #dbeafe; color: #1e40af; }
-        .tag-drama { background: #fef3c7; color: #92400e; }
-        .tag-poem { background: #fce7f3; color: #9d174d; }
 
         .card h3 {
-            font-size: 1.45rem;
+            font-size: 1.4rem;
             font-weight: 700;
             color: #0f172a;
             margin-bottom: 6px;
-            transition: color 0.3s ease;
-        }
-
-        .card:hover h3 {
-            color: #2563eb;
         }
 
         .card .author {
             font-size: 0.88rem;
             color: #64748b;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             font-style: italic;
         }
 
+        /* গুরুত্বপূর্ণ: টেক্সট কাটার নিয়ম */
         .card .excerpt {
             font-size: 0.95rem;
             color: #334155;
             line-height: 1.7;
-            margin-bottom: 22px;
+            margin-bottom: 16px;
             display: -webkit-box;
-            -webkit-line-clamp: 6;
+            -webkit-line-clamp: 5; /* ডিফল্টভাবে ৫ লাইন দেখাবে */
             -webkit-box-orient: vertical;
             overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        /* যখন বিস্তারিত দেখাবে তখন পুরো লেখা দেখাবে */
+        .card.expanded .excerpt {
+            display: block;
+            overflow: visible;
         }
 
         .card-footer {
             margin-top: auto;
-            padding-top: 16px;
+            padding-top: 14px;
             border-top: 1px solid #f1f5f9;
         }
 
-        .read-more {
+        .read-more-btn {
             color: #2563eb;
-            text-decoration: none;
+            background: none;
+            border: none;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
+            cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: all 0.3s ease;
+            padding: 0;
         }
 
-        .read-more i {
-            transition: transform 0.3s ease;
+        .read-more-btn:hover {
+            color: #1d4ed8;
         }
 
-        .read-more:hover i {
-            transform: translateX(6px);
-        }
-
-        /* Filter Animate Classes */
+        /* Filter Animate */
         .card.hide {
-            opacity: 0;
-            transform: scale(0.9) translateY(20px);
-            pointer-events: none;
-            position: absolute;
-            visibility: hidden;
-        }
-
-        .card.show {
-            animation: cardAppear 0.5s ease forwards;
-        }
-
-        /* Animations Keyframes */
-        @keyframes floatIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+            display: none;
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: scale(0.92) translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1) translateY(0);
-            }
-        }
-
-        /* Mobile View Responsive */
+        /* Responsive */
         @media (max-width: 768px) {
             .mobile-menu-btn { display: block; }
             .nav-links {
                 display: none;
                 position: absolute;
                 top: 100%;
-                left: 0;
-                right: 0;
+                left: 0; right: 0;
                 background: #ffffff;
                 flex-direction: column;
-                padding: 18px;
+                padding: 16px;
                 border-bottom: 1px solid #e2e8f0;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
-            .nav-links.show { display: flex; animation: fadeInDown 0.3s ease-out; }
-            .page-header h1 { font-size: 1.8rem; }
+            .nav-links.show { display: flex; }
             .grid-container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation Bar -->
+<!-- Navbar -->
 <nav class="navbar">
     <div class="nav-container">
         <a href="#" class="nav-logo">
-            <i class="fa-solid fa-book-bookmark"></i> আহাদ আলী লেলিন
+            <i class="fa-solid fa-book-open"></i> আহাদ আলী লেলিন
         </a>
         <button class="mobile-menu-btn" onclick="toggleMenu()">
             <i class="fa-solid fa-bars"></i>
@@ -355,13 +285,13 @@
     </div>
 </nav>
 
-<!-- Main Page Header -->
+<!-- Page Header -->
 <header class="page-header">
     <h1>আমার পছন্দের সংগ্রহ</h1>
     <p>আমার প্রিয় নাটক, উপন্যাস, গল্প ও কবিতা</p>
 </header>
 
-<!-- Dynamic Filter Buttons -->
+<!-- Categories -->
 <div class="filter-container">
     <button class="filter-btn active" onclick="filterCategory('all', this)">সবগুলো</button>
     <button class="filter-btn" onclick="filterCategory('drama', this)">নাটক</button>
@@ -370,83 +300,93 @@
     <button class="filter-btn" onclick="filterCategory('poem', this)">কবিতা</button>
 </div>
 
-<!-- Main Content Grid -->
-<main class="grid-container" id="cardsGrid">
+<!-- Main Cards Grid -->
+<main class="grid-container">
 
-    <!-- Card 1: গল্প -->
+    <!-- Card 1 -->
     <article class="card" data-category="story">
-        <div>
-            <span class="category-tag tag-story">গল্প</span>
-            <h3>বিলাসী</h3>
-            <p class="author">লেখক: শরৎচন্দ্র চট্টোপাধ্যায়</p>
-            <p class="excerpt">
-                পাকা দুই ক্রোশ পথ হাঁটিয়া স্কুলে বিদ্যা অর্জন করিতে যাই। আমি একা নই—দশ-বারোজন। যাহাদেরই বাটী পল্লীগ্রামে, তাহাদেরই ছেলেদের শতকরা আশি জনকে এমনি করিয়া বিদ্যালাভ করিতে হয়। ইহাতে লাভের অঙ্কে শেষ পর্যন্ত একেবারেই শূন্য না পড়িলেও, যাহা পড়ে, তাহার হিসাব করিবার পক্ষে এই কয়টা কথা চিন্তা করিয়া দেখিলেই যথেষ্ট হইবে যে, যে ছেলেদের সকাল আটটার মধ্যে বাহির হইয়া যাতায়াতে চার ক্রোশ পথ ভাঙ্গিতে হয়...
-            </p>
-        </div>
+        <span class="category-tag tag-story">গল্প</span>
+        <h3>বিলাসী</h3>
+        <p class="author">লেখক: শরৎচন্দ্র চট্টোপাধ্যায়</p>
+        <p class="excerpt">
+            পাকা দুই ক্রোশ পথ হাঁটিয়া স্কুলে বিদ্যা অর্জন করিতে যাই। আমি একা নই—দশ-বারোজন। যাহাদেরই বাটী পল্লীগ্রামে, তাহাদেরই ছেলেদের শতকরা আশি জনকে এমনি করিয়া বিদ্যালাভ করিতে হয়। ইহাতে লাভের অঙ্কে শেষ পর্যন্ত একেবারেই শূন্য না পড়িলেও, যাহা পড়ে, তাহার হিসাব করিবার পক্ষে এই কয়টা কথা চিন্তা করিয়া দেখিলেই যথেষ্ট হইবে যে, যে ছেলেদের সকাল আটটার মধ্যে বাহির হইয়া যাতায়াতে চার ক্রোশ পথ ভাঙ্গিতে হয়—চার ক্রোশ মানে আট মাইল নয়, টের পাওয়া যায়—বর্ষার দিনে মাথার উপর মেঘের জল এবং পায়ের নীচে এক হাঁটু কাদা এবং গ্রীষ্মের দিনে জলের বদলে কড়া সূর্য এবং কাদার বদলে ধূ লার সাগর সাঁতার দিয়া স্কুল-ঘর করিতে হয়, সে দুর্ভাগা বালকদের মা-সরস্বতী খুশি হইয়া বর দিবেন কি, তাহাদের যন্ত্রণা দেখিয়া কোথায় যে তিনি মুখ লুকাইবেন, ভাবিয়া পান না।
+        </p>
         <div class="card-footer">
-            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+            <button class="read-more-btn" onclick="toggleExpand(this)">
+                <span>বিস্তারিত পড়ুন</span> <i class="fa-solid fa-arrow-down"></i>
+            </button>
         </div>
     </article>
 
-    <!-- Card 2: উপন্যাস -->
+    <!-- Card 2 -->
     <article class="card" data-category="novel">
-        <div>
-            <span class="category-tag tag-novel">উপন্যাস</span>
-            <h3>পদ্মা নদীর মাঝি</h3>
-            <p class="author">লেখক: মানিক বন্দ্যোপাধ্যায়</p>
-            <p class="excerpt">
-                বর্ষার মাঝামাঝি সময়। পদ্মায় ইলিশ মাছ ধরার মরসুম চলছে। দিনরাত কোনো সময়েই মাছ ধরা বন্ধ নেই। সন্ধ্যার সময় জাহাজঘাটে দাঁড়ালে দেখা যায় নদীর বুকে শত শত আলো অনির্বাণ জোনাকির মতো ঘুরে বেড়াচ্ছে। জেলে-নৌকার আলো সেগুলো। সমস্ত রাত আলোগুলো এভাবে নদীবক্ষের রহস্যময় ম্লান অন্ধকারে দুর্বোধ্য সংকেতের মতো সঞ্চালিত হয়...
-            </p>
-        </div>
+        <span class="category-tag tag-novel">উপন্যাস</span>
+        <h3>পদ্মা নদীর মাঝি</h3>
+        <p class="author">লেখক: মানিক বন্দ্যোপাধ্যায়</p>
+        <p class="excerpt">
+            বর্ষার মাঝামাঝি সময়। পদ্মায় ইলিশ মাছ ধরার মরসুম চলছে। দিনরাত কোনো সময়েই মাছ ধরা বন্ধ নেই। সন্ধ্যার সময় জাহাজঘাটে দাঁড়ালে দেখা যায় নদীর বুকে শত শত আলো অনির্বাণ জোনাকির মতো ঘুরে বেড়াচ্ছে। জেলে-নৌকার আলো সেগুলো। সমস্ত রাত আলোগুলো এভাবে নদীবক্ষের রহস্যময় ম্লান অন্ধকারে দুর্বোধ্য সংকেতের মতো সঞ্চালিত হয়। এক সময় মাঝরাত পার হয়ে যায়। শহরে, গ্রামে, রেল-স্টেশনে ও জাহাজঘাটে শান্ত মানুষ চোখ বুজে ঘুমিয়ে পড়ে। শেষরাতে ভাঙা ভাঙা মেঘে ঢাকা আকাশে ক্ষীণ চাঁদটি ওঠে। জেলে-নৌকার আলোগুলো তখনো নেভে না। নৌকার খোল ভরে জমতে থাকে মৃত সাদা ইলিশ মাছ। লণ্ঠনের আলোয় মাছের আঁশ চকচক করে, মাছের...
+        </p>
         <div class="card-footer">
-            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+            <button class="read-more-btn" onclick="toggleExpand(this)">
+                <span>বিস্তারিত পড়ুন</span> <i class="fa-solid fa-arrow-down"></i>
+            </button>
         </div>
     </article>
 
-    <!-- Card 3: গল্প -->
+    <!-- Card 3 -->
     <article class="card" data-category="story">
-        <div>
-            <span class="category-tag tag-story">গল্প</span>
-            <h3>জোঁক</h3>
-            <p class="author">লেখক: আবু ইসহাক</p>
-            <p class="excerpt">
-                সিদ্ধ মিষ্টি আলুর কয়েক টুকরা পেটে জামিন দেয় ওসমান। ভাতের অভাবে অন্য কিছু দিয়ে উদরপূর্তির নাম পেটে জামিন দেওয়া। চাল যখন দুর্মূল্য তখন এ ছাড়া উপায় কী? ওসমান হুঁকা নিয়ে বসে আর মাজু বিবি নিয়ে আসে রয়নার তেলের বোতল। হাতের তেলোয় ঢেলে সে স্বামীর পিঠে মালিশ করতে শুরু করে। ছয় বছরের মেয়ে টুনি জিজ্ঞেস করে—এই তেল মালিশ করলে কী অয় মা?
-            </p>
-        </div>
+        <span class="category-tag tag-story">গল্প</span>
+        <h3>জোঁক</h3>
+        <p class="author">লেখক: আবু ইসহাক</p>
+        <p class="excerpt">
+            সিদ্ধ মিষ্টি আলুর কয়েক টুকরা পেটে জামিন দেয় ওসমান। ভাতের অভাবে অন্য কিছু দিয়ে উদরপূর্তির নাম পেটে জামিন দেওয়া। চাল যখন দুর্মূল্য তখন এ ছাড়া উপায় কী? ওসমান হুঁকা নিয়ে বসে আর মাজু বিবি নিয়ে আসে রয়নার তেলের বোতল। হাতের তেলোয় ঢেলে সে স্বামীর পিঠে মালিশ করতে শুরু করে। ছয় বছরের মেয়ে টুনি জিজ্ঞেস করে—এই তেল মালিশ করলে কী অয় মা? —পানিতে কামড়াইতে পারে না। উত্তর দেয় মাজু বিবি।
+        </p>
         <div class="card-footer">
-            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+            <button class="read-more-btn" onclick="toggleExpand(this)">
+                <span>বিস্তারিত পড়ুন</span> <i class="fa-solid fa-arrow-down"></i>
+            </button>
         </div>
     </article>
 
 </main>
 
 <script>
-    // মোবাইল মেনু টগল স্ক্রিপ্ট
-    function toggleMenu() {
-        const navLinks = document.getElementById('navLinks');
-        navLinks.classList.toggle('show');
+    // এক ক্লিকে পুরো লেখা দেখানো/লুকানোর ফাংশন
+    function toggleExpand(button) {
+        const card = button.closest('.card');
+        const textSpan = button.querySelector('span');
+        const icon = button.querySelector('i');
+
+        card.classList.toggle('expanded');
+
+        if (card.classList.contains('expanded')) {
+            textSpan.innerText = 'সংক্ষেপ করুন';
+            icon.className = 'fa-solid fa-arrow-up';
+        } else {
+            textSpan.innerText = 'বিস্তারিত পড়ুন';
+            icon.className = 'fa-solid fa-arrow-down';
+        }
     }
 
-    // মোশন ফিল্টারিং স্ক্রিপ্ট
+    // ফিল্টারিং
     function filterCategory(category, element) {
-        // সক্রিয় বাটন পরিবর্তন
         const buttons = document.querySelectorAll('.filter-btn');
         buttons.forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
 
-        // কার্ড ফিল্টার এনিমেশন
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
-            const cardCat = card.getAttribute('data-category');
-            
-            if (category === 'all' || cardCat === category) {
+            if (category === 'all' || card.getAttribute('data-category') === category) {
                 card.classList.remove('hide');
-                card.classList.add('show');
             } else {
-                card.classList.remove('show');
                 card.classList.add('hide');
             }
         });
+    }
+
+    // মোবাইল মেনু
+    function toggleMenu() {
+        document.getElementById('navLinks').classList.toggle('show');
     }
 </script>
 
