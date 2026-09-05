@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আহাদ আলী লেলিন - অফিশিয়াল পোর্টফোলিও</title>
+    <title>আহাদ আলী লেলিন - অফিশিয়াল পোর্টফোলিও</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -274,7 +274,7 @@
             height: 440px;
             border-radius: 20px;
             overflow: hidden;
-            background: transparent; /* ব্যাকগ্রাউন্ড সম্পূর্ণ ট্রান্সপারেন্ট করা হয়েছে */
+            background: transparent;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -337,14 +337,9 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- লোগো এরিয়া থেকে আইকন বাদ দেয়া হয়েছে -->
-        <a href="#" class="nav-logo"></a>
-        <ul class="nav-links">
-            <li><a href="#" class="active">হোম</a></li>
-            <li><a href="#">সংগ্রহ</a></li>
-            <li><a href="#">আমার সম্পর্কে</a></li>
-            <li><a href="#">যোগাযোগ</a></li>
-        </ul>
+        <a href="index.html" class="nav-logo">আহাদ আলী লেলিন</a>
+        <!-- ডায়নামিক মেনু লিঙ্কসমূহ JavaScript থেকে যুক্ত হবে -->
+        <ul class="nav-links" id="dynamic-nav-links"></ul>
     </div>
 </nav>
 
@@ -404,7 +399,44 @@
 </div>
 
 <script>
-    // Particle Animation Background
+    // ----------------------------------------------------
+    // ১. ডায়নামিক মেনু বার রেন্ডার করার লজিক (Dynamic Navigation)
+    // ----------------------------------------------------
+    const pages = [
+        { name: "হোম", url: "index.html" },
+        { name: "সংগ্রহ", url: "collection.html" },
+        { name: "আমার সম্পর্কে", url: "about.html" },
+        { name: "যোগাযোগ", url: "contact.html" }
+        // ভবিষ্যতে নতুন পেজ যোগ করতে চাইলে এখানে একটি লাইন কমা দিয়ে যোগ করুন।
+        // যেমন: { name: "গ্যালারি", url: "gallery.html" }
+    ];
+
+    function buildNavigation() {
+        const navUl = document.getElementById('dynamic-nav-links');
+        const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+        
+        navUl.innerHTML = ''; // পুরোনো মেনু মুছে ফেলা
+
+        pages.forEach(page => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = page.url;
+            a.innerText = page.name;
+
+            // বর্তমান পেজের সাথে ইউআরএল মিললে 'active' ক্লাস যুক্ত হবে
+            if (currentPath === page.url || (currentPath === '' && page.url === 'index.html')) {
+                a.classList.add('active');
+            }
+
+            li.appendChild(a);
+            navUl.appendChild(li);
+        });
+    }
+    buildNavigation();
+
+    // ----------------------------------------------------
+    // ২. ব্যাকগ্রাউন্ড পার্টিকেল অ্যানিমেশন
+    // ----------------------------------------------------
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
     
@@ -445,7 +477,9 @@
     }
     animateParticles();
 
-    // Time Greeting
+    // ----------------------------------------------------
+    // ৩. সময় অনুযায়ী গ্রিটিংস মেসেজ
+    // ----------------------------------------------------
     function setGreeting() {
         const hour = new Date().getHours();
         const greetingText = document.getElementById('greetingText');
@@ -458,8 +492,10 @@
     }
     setGreeting();
 
-    // Auto Type and Delete Animation Logic
-    const words = ["Surveillance Expert", "Digital Marketer", "কবি ও লেখক", "আবৃত্তিশিল্পী ও গায়ক"];
+    // ----------------------------------------------------
+    // ৪. টাইপরাইটার অ্যানিমেশন (Typewriter Effect)
+    // ----------------------------------------------------
+    const words = ["Surveillance Expert", "Digital Marketer", "কবি ও লেখক", "আবৃত্তিশিল্পী ও গায়ক"];
     let wordIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -479,7 +515,7 @@
         let typeSpeed = isDeleting ? 50 : 100;
 
         if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2000; // পাওয়ার পর ২ সেকেন্ড থামবে
+            typeSpeed = 2000;
             isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
