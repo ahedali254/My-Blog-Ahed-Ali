@@ -16,7 +16,7 @@
         }
 
         body {
-            background-color: #0f172a;
+            background-color: #0b1329;
             color: #f8fafc;
             min-height: 100vh;
             display: flex;
@@ -38,9 +38,9 @@
 
         /* Navbar Style */
         .navbar {
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(11, 19, 41, 0.85);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -56,13 +56,11 @@
         }
 
         .nav-logo {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #38bdf8;
             text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            letter-spacing: 1px;
             text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
         }
 
@@ -101,9 +99,9 @@
         .hero-card {
             max-width: 1100px;
             width: 100%;
-            background: rgba(30, 41, 59, 0.7);
+            background: rgba(18, 28, 56, 0.6);
             backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             display: flex;
@@ -111,15 +109,6 @@
             align-items: center;
             overflow: hidden;
             position: relative;
-        }
-
-        .hero-card::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0; bottom: 0; left: 0;
-            border-radius: 24px;
-            box-shadow: inset 0 0 20px rgba(56, 189, 248, 0.15);
-            pointer-events: none;
         }
 
         .hero-content {
@@ -139,13 +128,12 @@
             font-weight: 600;
             border: 1px solid rgba(56, 189, 248, 0.3);
             margin-bottom: 20px;
-            box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
         }
 
         .hero-content h1 {
             font-size: 2.6rem;
             line-height: 1.2;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             font-weight: 700;
         }
 
@@ -154,15 +142,40 @@
             text-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
         }
 
+        /* Typewriter Animation Text Styling */
+        .typing-container {
+            font-size: 1.2rem;
+            color: #38bdf8;
+            font-weight: 600;
+            min-height: 32px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2rem;
+            background-color: #38bdf8;
+            margin-left: 4px;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
         .subtitle {
-            font-size: 1.05rem;
+            font-size: 1rem;
             color: #cbd5e1;
             margin-bottom: 20px;
             line-height: 1.6;
         }
 
         .quote-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(11, 19, 41, 0.6);
             border-left: 4px solid #38bdf8;
             padding: 16px 20px;
             border-radius: 0 12px 12px 0;
@@ -187,12 +200,12 @@
         }
 
         .pill {
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(11, 19, 41, 0.8);
             color: #e2e8f0;
             padding: 8px 16px;
             border-radius: 8px;
             font-size: 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             gap: 8px;
@@ -246,7 +259,7 @@
             color: #38bdf8;
         }
 
-        /* Image Wrapper */
+        /* Image Section - Transparent Overlay */
         .hero-image-wrapper {
             flex: 1 1 45%;
             padding: 35px;
@@ -261,8 +274,12 @@
             height: 440px;
             border-radius: 20px;
             overflow: hidden;
-            border: 2px solid rgba(56, 189, 248, 0.3);
-            box-shadow: 0 0 25px rgba(56, 189, 248, 0.2);
+            background: transparent; /* ব্যাকগ্রাউন্ড সম্পূর্ণ ট্রান্সপারেন্ট করা হয়েছে */
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
         }
 
         .image-card img {
@@ -270,6 +287,7 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            mix-blend-mode: normal;
         }
 
         .floating-badge {
@@ -277,7 +295,7 @@
             bottom: 15px;
             left: 15px;
             right: 15px;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(11, 19, 41, 0.85);
             backdrop-filter: blur(10px);
             padding: 12px;
             border-radius: 12px;
@@ -285,6 +303,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
+            z-index: 2;
         }
 
         .floating-badge i {
@@ -303,12 +322,12 @@
             color: #94a3b8;
         }
 
-        /* Mobile View */
+        /* Mobile Responsive */
         @media (max-width: 900px) {
             .hero-card { flex-direction: column-reverse; }
             .hero-content { padding: 30px 20px; }
             .hero-image-wrapper { padding: 30px 20px 0; width: 100%; }
-            .image-card { height: 350px; }
+            .image-card { height: 360px; }
         }
     </style>
 </head>
@@ -318,7 +337,8 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <a href="#" class="nav-logo"><i class="fa-solid fa-code"></i> AHAD ALI LELIN</a>
+        <!-- লোগো এরিয়া থেকে আইকন বাদ দেয়া হয়েছে -->
+        <a href="#" class="nav-logo">AHAD ALI LELIN</a>
         <ul class="nav-links">
             <li><a href="#" class="active">হোম</a></li>
             <li><a href="#">সংগ্রহ</a></li>
@@ -337,6 +357,11 @@
             </div>
 
             <h1>আমি <span>আহাদ আলী লেলিন</span></h1>
+            
+            <!-- Auto Typing Animation Element -->
+            <div class="typing-container">
+                <span id="typed-text"></span><span class="typing-cursor"></span>
+            </div>
             
             <p class="subtitle">
                 কর্পোরেট সার্ভেইল্যান্স অপারেশনের পাশাপাশি ডিজিটাল মার্কেটিং, সাহিত্যচর্চা ও সুরের ভুবনে নিজেকে প্রকাশ করতে ভালোবাসি।
@@ -420,18 +445,52 @@
     }
     animateParticles();
 
-    // Time-based Greeting
+    // Time Greeting
     function setGreeting() {
         const hour = new Date().getHours();
         const greetingText = document.getElementById('greetingText');
         let msg = "";
-        if (hour >= 5 && hour < 12) msg = "শুভ সকাল! ডিজিটাল স্পেসে স্বাগতম।";
+        if (hour >= 5 && hour < 12) msg = "শুভ সকাল! স্বাগতম।";
         else if (hour >= 12 && hour < 17) msg = "শুভ দুপুর! স্বাগতম।";
         else if (hour >= 17 && hour < 20) msg = "শুভ সন্ধ্যা! স্বাগতম।";
         else msg = "শুভ রাত! স্বাগতম।";
         greetingText.innerText = msg;
     }
     setGreeting();
+
+    // Auto Type and Delete Animation Logic
+    const words = ["Surveillance Expert", "Digital Marketer", "কবি ও লেখক", "আবৃত্তিশিল্পী ও গায়ক"];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const typedTextElement = document.getElementById("typed-text");
+
+    function typeEffect() {
+        const currentWord = words[wordIndex];
+        
+        if (isDeleting) {
+            typedTextElement.textContent = currentWord.substring(0, charIndex - 1);
+            charIndex--;
+        } else {
+            typedTextElement.textContent = currentWord.substring(0, charIndex + 1);
+            charIndex++;
+        }
+
+        let typeSpeed = isDeleting ? 50 : 100;
+
+        if (!isDeleting && charIndex === currentWord.length) {
+            typeSpeed = 2000; // পাওয়ার পর ২ সেকেন্ড থামবে
+            isDeleting = true;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            wordIndex = (wordIndex + 1) % words.length;
+            typeSpeed = 500;
+        }
+
+        setTimeout(typeEffect, typeSpeed);
+    }
+
+    document.addEventListener("DOMContentLoaded", typeEffect);
 </script>
 
 </body>
