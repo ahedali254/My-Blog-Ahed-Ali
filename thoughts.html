@@ -34,20 +34,83 @@
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            padding: 50px 20px;
+            padding-top: 80px;
+            padding-bottom: 50px;
             background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
             background-size: 24px 24px;
+        }
+
+        /* Responsive Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 999;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+
+        .brand-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.98rem;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         /* Hero Header */
         .section-header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
+            margin-top: 20px;
         }
 
         .section-header h2 {
@@ -218,7 +281,7 @@
             gap: 32px;
         }
 
-        /* Modern Card Item */
+        /* Modern Card Item with Motion */
         .content-card {
             background: var(--card-bg);
             border-radius: var(--radius-lg);
@@ -229,6 +292,12 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .content-card:hover {
@@ -334,7 +403,7 @@
             gap: 10px;
         }
 
-        /* Modal Overlay */
+        /* Standardized Modal Overlay & Animation */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -364,8 +433,8 @@
         }
 
         @keyframes modalUp {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+            from { opacity: 0; transform: scale(0.95) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .close-modal-btn {
@@ -413,6 +482,7 @@
             font-weight: 600;
             box-shadow: var(--shadow-sm);
             transition: all 0.25s;
+            z-index: 100;
         }
 
         .admin-trigger:hover {
@@ -430,20 +500,63 @@
             padding: 50px 0;
         }
 
+        /* Mobile View Rules */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+                border-bottom: 1px solid var(--border-color);
+                display: none;
+            }
+
+            .nav-menu.show {
+                display: flex;
+            }
+        }
+
         @media (max-width: 600px) {
             .portfolio-grid { grid-template-columns: 1fr; }
             .section-header h2 { font-size: 2.1rem; }
-            body { padding: 30px 15px; }
+            body { padding-top: 70px; }
+            .modal-content { padding: 22px; }
         }
     </style>
 </head>
 <body>
 
+<!-- Mobile Friendly Header & Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="brand-logo">
+            <i class="fa-solid fa-feather"></i> ভাবনার ক্যানভাস
+        </a>
+        <button class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#" class="nav-link active">হোম</a></li>
+            <li><a href="#portfolioGrid" class="nav-link">সংকলন</a></li>
+            <li><a href="javascript:void(0)" onclick="showAdminPanel()" class="nav-link"><i class="fa-solid fa-lock"></i> অ্যাডমিন</a></li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <!-- Header -->
     <div class="section-header">
         <h2><span>ভাবনার ক্যানভাস</span> ও কলমের ছোঁয়া</h2>
-        <p>কবিতা, সাহিত্য, সুর এবং অনুভূতির নিভৃত সংকলন</p>
+        <p>কবিতা, সাহিত্য, সুর এবং অনুভূতির নিভৃত সংকলন - আহাদ আলী লেলিন</p>
     </div>
 
     <!-- Admin Panel (Form) -->
@@ -546,6 +659,23 @@
 </div>
 
 <button class="admin-trigger" onclick="showAdminPanel()"><i class="fa-solid fa-lock"></i> Admin Login</button>
+
+<!-- Navigation Script -->
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById("navMenu");
+        const icon = document.getElementById("menuIcon");
+        menu.classList.toggle("show");
+        
+        if (menu.classList.contains("show")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-xmark");
+        } else {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+    }
+</script>
 
 <!-- Firebase SDK Integration -->
 <script type="module">
