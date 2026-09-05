@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ভাবনার ক্যানভাস ও কলমের ছোঁয়া - আহাদ আলী লেলিন</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 50px 20px;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.8rem;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-header h2 span {
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.15rem;
+            font-weight: 400;
+        }
+
+        /* Admin Panel Styling */
+        .admin-panel {
+            display: none;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 40px;
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.12);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 12px;
+        }
+
+        .admin-header h3 {
+            color: var(--primary);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-admin-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .close-admin-btn:hover {
+            background: #dc2626;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.92rem;
+            color: #334155;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            outline: none;
+            background: #f8fafc;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            background: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Filter Tabs */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 45px;
+        }
+
+        .filter-btn {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* Dynamic Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 32px;
+        }
+
+        /* Modern Card Item */
+        .content-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .content-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(37, 99, 235, 0.3);
+        }
+
+        /* Media Header Box */
+        .card-media {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            background: #f1f5f9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .content-card:hover .card-media img {
+            transform: scale(1.06);
+        }
+
+        .card-media iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .audio-wrapper {
+            width: 90%;
+            text-align: center;
+        }
+
+        .category-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            letter-spacing: 0.3px;
+        }
+
+        /* Card Content */
+        .card-body {
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .card-excerpt {
+            color: var(--text-muted);
+            font-size: 0.96rem;
+            line-height: 1.65;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 16px;
+            font-size: 0.88rem;
+            color: #94a3b8;
+        }
+
+        .read-more-btn {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .content-card:hover .read-more-btn {
+            gap: 10px;
+        }
+
+        /* Modal Overlay */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #ffffff;
+            width: 100%;
+            max-width: 720px;
+            max-height: 85vh;
+            border-radius: 24px;
+            padding: 35px;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            animation: modalUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalUp {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: #f1f5f9;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: #475569;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal-btn:hover {
+            background: #e2e8f0;
+            transform: rotate(90deg);
+        }
+
+        .modal-body-text {
+            line-height: 1.85;
+            color: #334155;
+            font-size: 1.08rem;
+            margin-top: 20px;
+            white-space: pre-line;
+        }
+
+        .admin-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ffffff;
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            padding: 10px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.25s;
+        }
+
+        .admin-trigger:hover {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+            box-shadow: 0 8px 16px rgba(37, 99, 235, 0.2);
+        }
+
+        .loading-text {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            grid-column: 1 / -1;
+            padding: 50px 0;
+        }
+
+        @media (max-width: 600px) {
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .section-header h2 { font-size: 2.1rem; }
+            body { padding: 30px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- Header -->
+    <div class="section-header">
+        <h2><span>ভাবনার ক্যানভাস</span> ও কলমের ছোঁয়া</h2>
+        <p>কবিতা, সাহিত্য, সুর এবং অনুভূতির নিভৃত সংকলন</p>
+    </div>
+
+    <!-- Admin Panel (Form) -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h3><i class="fa-solid fa-pen-to-square"></i> নতুন সৃষ্টি যুক্ত করুন</h3>
+            <button class="close-admin-btn" onclick="hideAdminPanel()">লুকান</button>
+        </div>
+        <form id="contentForm">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>ক্যাটাগরি</label>
+                    <select id="itemCategory" onchange="toggleFormFields()" required>
+                        <option value="poem">কবিতা</option>
+                        <option value="story">গল্প</option>
+                        <option value="feelings">অনুভূতি</option>
+                        <option value="recitation">আবৃত্তি</option>
+                        <option value="audio">অডিও</option>
+                        <option value="song">গান</option>
+                        <option value="video">ভিডিও</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>শিরোনাম</label>
+                    <input type="text" id="itemTitle" required placeholder="শিরোনাম লিখুন...">
+                </div>
+                <div class="form-group">
+                    <label>তারিখ</label>
+                    <input type="text" id="itemDate" required placeholder="যেমন: ২৫ আগস্ট, ২০২৬">
+                </div>
+                <div class="form-group" id="imageGroup">
+                    <label>ছবি নির্বাচন (ডিভাইস থেকে)</label>
+                    <input type="file" id="itemImageFile" accept="image/*">
+                </div>
+                <div class="form-group" id="audioGroup" style="display: none;">
+                    <label>অডিও ফাইল নির্বাচন (ডিভাইস থেকে)</label>
+                    <input type="file" id="itemAudioFile" accept="audio/*">
+                </div>
+                <div class="form-group" id="youtubeGroup" style="display: none;">
+                    <label>ইউটিউব ভিডিও ID (শুধু ভিডিওর জন্য)</label>
+                    <input type="text" id="itemYoutubeId" placeholder="যেমন: dQw4w9WgXcQ">
+                </div>
+            </div>
+            <div class="form-group" id="excerptGroup">
+                <label>সংক্ষিপ্ত বিবরণ (Excerpt)</label>
+                <input type="text" id="itemExcerpt" placeholder="কার্ডে দেখানোর জন্য ১-২ লাইনের বিবরণ...">
+            </div>
+            <div class="form-group full-width" id="fullContentGroup">
+                <label>সম্পূর্ণ লেখা / বিবরণ (Full Content)</label>
+                <textarea id="itemFullContent" rows="5" placeholder="সম্পূর্ণ কবিতা বা লেখাটি এখানে লিখুন..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="saveBtn"><i class="fa-solid fa-cloud-arrow-up"></i> ফায়ারবেসে যুক্ত করুন</button>
+        </form>
+    </div>
+
+    <!-- Category Filters -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterContent('all', this)">
+            <i class="fa-solid fa-layer-group"></i> সব কন্টেন্ট
+        </button>
+        <button class="filter-btn" onclick="filterContent('story', this)">
+            <i class="fa-solid fa-book-open"></i> গল্প
+        </button>
+        <button class="filter-btn" onclick="filterContent('poem', this)">
+            <i class="fa-solid fa-feather-pointed"></i> কবিতা
+        </button>
+        <button class="filter-btn" onclick="filterContent('feelings', this)">
+            <i class="fa-solid fa-heart"></i> অনুভূতি
+        </button>
+        <button class="filter-btn" onclick="filterContent('recitation', this)">
+            <i class="fa-solid fa-microphone-lines"></i> আবৃত্তি
+        </button>
+        <button class="filter-btn" onclick="filterContent('audio', this)">
+            <i class="fa-solid fa-file-audio"></i> অডিও
+        </button>
+        <button class="filter-btn" onclick="filterContent('song', this)">
+            <i class="fa-solid fa-music"></i> গান
+        </button>
+        <button class="filter-btn" onclick="filterContent('video', this)">
+            <i class="fa-solid fa-video"></i> ভিডিও
+        </button>
+    </div>
+
+    <!-- Portfolio Dynamic Grid -->
+    <div class="portfolio-grid" id="portfolioGrid">
+        <div class="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</div>
+    </div>
+</div>
+
+<!-- Detailed Modal View -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <button class="close-modal-btn" onclick="closeModal()">✕</button>
+        <span class="category-badge" id="modalBadge" style="position: relative; top: 0; left: 0; display: inline-block; margin-bottom: 12px;"></span>
+        <h2 id="modalTitle" style="font-size: 1.9rem; color: #0f172a;"></h2>
+        <div id="modalDate" style="color: #94a3b8; font-size: 0.95rem; margin-top: 6px;"></div>
+        <hr style="margin: 18px 0; border: 0; border-top: 1px solid #e2e8f0;">
+        <div class="modal-body-text" id="modalBody"></div>
+    </div>
+</div>
+
+<button class="admin-trigger" onclick="showAdminPanel()"><i class="fa-solid fa-lock"></i> Admin Login</button>
+
+<!-- Firebase SDK Integration -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCUFnabuAwrDzdLKmuJdu8L3Ix-6RtmFYw",
+        authDomain: "my-favorite-afd36.firebaseapp.com",
+        projectId: "my-favorite-afd36",
+        storageBucket: "my-favorite-afd36.firebasestorage.app",
+        messagingSenderId: "946815901030",
+        appId: "1:946815901030:web:b36846c356f8f97edbfca7",
+        measurementId: "G-7N5GJ6X4KS"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const ADMIN_PASSWORD = "Laboni"; 
+    let allContentItems = [];
+
+    const categoryMap = {
+        'poem': 'কবিতা',
+        'story': 'গল্প',
+        'feelings': 'অনুভূতি',
+        'recitation': 'আবৃত্তি',
+        'audio': 'অডিও',
+        'song': 'গান',
+        'video': 'ভিডিও'
+    };
+
+    // ক্যাটাগরি অনুযায়ী ফিল্ড হাইড/শো করার ফাংশন
+    window.toggleFormFields = function() {
+        const cat = document.getElementById("itemCategory").value;
+        const isAudioType = ['audio', 'recitation', 'song'].includes(cat);
+        const isVideo = cat === 'video';
+
+        document.getElementById("audioGroup").style.display = isAudioType ? "block" : "none";
+        document.getElementById("youtubeGroup").style.display = isVideo ? "block" : "none";
+        document.getElementById("imageGroup").style.display = (isAudioType || isVideo) ? "none" : "block";
+
+        document.getElementById("excerptGroup").style.display = isAudioType ? "none" : "block";
+        document.getElementById("fullContentGroup").style.display = isAudioType ? "none" : "block";
+    };
+
+    // ছবির সাইজ কমপ্রেস করার ফাংশন
+    function compressImage(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (e) => {
+                const img = new Image();
+                img.src = e.target.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const maxWidth = 800;
+                    const scaleSize = maxWidth / img.width;
+                    
+                    if (scaleSize < 1) {
+                        canvas.width = maxWidth;
+                        canvas.height = img.height * scaleSize;
+                    } else {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                    }
+
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    resolve(canvas.toDataURL('image/jpeg', 0.7));
+                };
+            };
+        });
+    }
+
+    // ফাইল রিডার (অডিও-এর জন্য)
+    function readFileAsBase64(file) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // ফায়ারবেস থেকে ডাটা পড়ার ফাংশন
+    async function fetchCanvasPosts() {
+        const grid = document.getElementById('portfolioGrid');
+        grid.innerHTML = '<div class="loading-text"><i class="fa-solid fa-spinner fa-spin"></i> ডাটা লোড হচ্ছে...</div>';
+
+        try {
+            const querySnapshot = await getDocs(collection(db, "canvas_posts"));
+            allContentItems = [];
+            querySnapshot.forEach((doc) => {
+                allContentItems.push(doc.data());
+            });
+            allContentItems.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+            renderCards(allContentItems);
+        } catch (error) {
+            console.error("Error fetching data: ", error);
+            grid.innerHTML = '<div class="loading-text">ডাটা লোড করতে সমস্যা হয়েছে।</div>';
+        }
+    }
+
+    // ফর্ম সাবমিট ও আপলোড হ্যান্ডলার
+    document.getElementById("contentForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const saveBtn = document.getElementById("saveBtn");
+        saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> সেভ হচ্ছে...';
+        saveBtn.disabled = true;
+
+        const catKey = document.getElementById("itemCategory").value;
+        const isAudioType = ['audio', 'recitation', 'song'].includes(catKey);
+
+        let imageBase64 = "https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=600&q=80";
+        let audioBase64 = "";
+
+        // ছবি প্রসেসিং
+        const imageFile = document.getElementById("itemImageFile").files[0];
+        if (imageFile && !isAudioType) {
+            imageBase64 = await compressImage(imageFile);
+        }
+
+        // অডিও ফাইল প্রসেসিং
+        const audioFile = document.getElementById("itemAudioFile").files[0];
+        if (audioFile && isAudioType) {
+            audioBase64 = await readFileAsBase64(audioFile);
+        }
+
+        const newPost = {
+            category: catKey,
+            categoryName: categoryMap[catKey],
+            title: document.getElementById("itemTitle").value,
+            date: document.getElementById("itemDate").value,
+            image: imageBase64,
+            audio: audioBase64,
+            youtubeId: document.getElementById("itemYoutubeId").value.trim(),
+            excerpt: isAudioType ? "" : document.getElementById("itemExcerpt").value,
+            fullContent: isAudioType ? "" : document.getElementById("itemFullContent").value,
+            createdAt: new Date().getTime()
+        };
+
+        try {
+            await addDoc(collection(db, "canvas_posts"), newPost);
+            alert("নতুন কন্টেন্ট সফলভাবে ফায়ারবেসে যুক্ত হয়েছে!");
+            document.getElementById("contentForm").reset();
+            toggleFormFields();
+            fetchCanvasPosts();
+        } catch (error) {
+            alert("ভুল হয়েছে: " + error.message);
+        } finally {
+            saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> ফায়ারবেসে যুক্ত করুন';
+            saveBtn.disabled = false;
+        }
+    });
+
+    // কার্ড রেন্ডার করা
+    window.renderCards = function(items) {
+        const grid = document.getElementById('portfolioGrid');
+        grid.innerHTML = '';
+
+        if (items.length === 0) {
+            grid.innerHTML = '<div class="loading-text">কোনো কন্টেন্ট পাওয়া যায়নি।</div>';
+            return;
+        }
+
+        items.forEach(item => {
+            const isAudio = ['audio', 'recitation', 'song'].includes(item.category);
+            let mediaHTML = '';
+            
+            if (item.youtubeId) {
+                mediaHTML = `<iframe src="https://www.youtube.com/embed/${item.youtubeId}" allowfullscreen></iframe>`;
+            } else if (isAudio || item.audio) {
+                mediaHTML = `
+                    <div class="audio-wrapper">
+                        <i class="fa-solid fa-microphone-lines fa-2x" style="color: #2563eb; margin-bottom: 12px;"></i>
+                        <audio controls style="width: 100%;">
+                            <source src="${item.audio}" type="audio/mpeg">
+                            আপনার ব্রাউজার অডিও সাপোর্ট করে না।
+                        </audio>
+                    </div>`;
+            } else {
+                mediaHTML = `<img src="${item.image}" alt="${item.title}">`;
+            }
+
+            const card = document.createElement('div');
+            card.className = 'content-card';
+            
+            if (!isAudio) {
+                card.style.cursor = 'pointer';
+                card.onclick = () => openModal(item);
+            }
+
+            card.innerHTML = `
+                <div class="card-media">
+                    <span class="category-badge">${item.categoryName}</span>
+                    ${mediaHTML}
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">${item.title}</h3>
+                    ${!isAudio ? `<p class="card-excerpt">${item.excerpt || ''}</p>` : ''}
+                    <div class="card-footer" style="margin-top: auto;">
+                        <span><i class="fa-regular fa-calendar"></i> ${item.date}</span>
+                        ${!isAudio ? `<span class="read-more-btn">পড়ুন / দেখুন <i class="fa-solid fa-arrow-right"></i></span>` : ''}
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    };
+
+    // ফিল্টার বাটন ফাংশন
+    window.filterContent = function(category, btnElement) {
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        btnElement.classList.add('active');
+
+        if (category === 'all') {
+            renderCards(allContentItems);
+        } else {
+            const filtered = allContentItems.filter(item => item.category === category);
+            renderCards(filtered);
+        }
+    };
+
+    // অ্যাডমিন প্যানেল কন্ট্রোল
+    window.showAdminPanel = function() {
+        const pass = prompt("অ্যাডমিন পাসওয়ার্ড প্রবেশ করান:");
+        if (pass && pass.trim() === ADMIN_PASSWORD) {
+            document.getElementById("adminPanel").style.display = "block";
+            toggleFormFields();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else if (pass !== null) {
+            alert("ভুল পাসওয়ার্ড!");
+        }
+    };
+
+    window.hideAdminPanel = function() {
+        document.getElementById("adminPanel").style.display = "none";
+    };
+
+    // বিস্তারিত দেখার পপআপ (Modal)
+    window.openModal = function(item) {
+        document.getElementById("modalBadge").innerText = item.categoryName;
+        document.getElementById("modalTitle").innerText = item.title;
+        document.getElementById("modalDate").innerHTML = `<i class="fa-regular fa-calendar"></i> ${item.date}`;
+        document.getElementById("modalBody").innerText = item.fullContent || 'কোন বিবরণ পাওয়া যায়নি।';
+        document.getElementById("modalOverlay").style.display = "flex";
+    };
+
+    window.closeModal = function() {
+        document.getElementById("modalOverlay").style.display = "none";
+    };
+
+    // Initial Load
+    fetchCanvasPosts();
+</script>
+
+</body>
+</html>
