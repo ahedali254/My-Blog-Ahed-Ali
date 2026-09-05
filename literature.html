@@ -3,283 +3,452 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>আমার পছন্দের সংগ্রহ</title>
+    <title>আহাদ আলী লেলিন - আমার পছন্দের সংগ্রহ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f6f9; color: #333; padding: 20px; }
-        .container { max-width: 1000px; margin: 0 auto; }
-        header { text-align: center; margin-bottom: 30px; }
-        header h1 { color: #2c3e50; margin-bottom: 10px; font-size: 2.2rem; }
-        header p { color: #64748b; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
 
-        .admin-panel {
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Top Navigation Bar with Motion */
+        .navbar {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0f172a;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.02);
+        }
+
+        .nav-logo i {
+            color: #2563eb;
+            animation: floatIcon 3s infinite ease-in-out;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        .mobile-menu-btn {
             display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        /* Header Animation */
+        .page-header {
+            text-align: center;
+            padding: 50px 20px 30px;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        .page-header h1 {
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            font-size: 1.05rem;
+            color: #64748b;
+        }
+
+        /* Interactive Filter Buttons with Motion */
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 0 20px 40px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .filter-btn {
             background: #ffffff;
-            padding: 25px;
-            border-radius: 16px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            border: 2px solid #2563eb;
+            border: 1px solid #cbd5e1;
+            color: #475569;
+            padding: 8px 24px;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            outline: none;
         }
-        .admin-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .logout-btn { background: #ef4444; color: white; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9rem; color: #475569; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none;
+
+        .filter-btn:hover {
+            border-color: #2563eb;
+            color: #2563eb;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 6px 15px rgba(37, 99, 235, 0.1);
         }
-        .submit-btn { background: #16a34a; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; width: 100%; }
-        .submit-btn:disabled { background: #94a3b8; cursor: not-allowed; }
 
-        .filter-buttons { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-        .filter-btn { background-color: #ffffff; border: 1px solid #cbd5e1; padding: 10px 24px; border-radius: 25px; cursor: pointer; font-weight: 600; color: #475569; }
-        .filter-btn:hover, .filter-btn.active { background-color: #2563eb; color: #ffffff; border-color: #2563eb; }
+        .filter-btn.active {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+            box-shadow: 0 6px 18px rgba(37, 99, 235, 0.3);
+            transform: scale(1.05);
+        }
 
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background-color: #ffffff; border-radius: 16px; padding: 20px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04); cursor: pointer; border: 1px solid #f1f5f9; display: flex; flex-direction: column; overflow: hidden; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08); }
-        
-        .card-img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; }
-        .modal-img { width: 100%; max-height: 300px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
+        /* Content Grid */
+        .grid-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 28px;
+            width: 100%;
+        }
 
-        .badge { align-self: flex-start; padding: 5px 12px; border-radius: 12px; font-size: 0.8rem; font-weight: bold; margin-bottom: 14px; }
-        .badge-নাটক { background-color: #ffe4e6; color: #e11d48; }
-        .badge-উপন্যাস { background-color: #dbeafe; color: #2563eb; }
-        .badge-গল্প { background-color: #dcfce7; color: #16a34a; }
-        .badge-কবিতা { background-color: #fef3c7; color: #d97706; }
+        /* Animated Work Cards */
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 26px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 
-        .card h3 { color: #1e293b; margin-bottom: 8px; font-size: 1.25rem; }
-        .author { color: #64748b; font-size: 0.9rem; margin-bottom: 14px; font-style: italic; }
-        .description { color: #475569; font-size: 0.95rem; line-height: 1.6; margin-bottom: 15px; }
-        .read-more { margin-top: auto; color: #2563eb; font-weight: bold; font-size: 0.9rem; }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
+            border-color: #93c5fd;
+        }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); display: none; justify-content: center; align-items: center; padding: 20px; z-index: 1000; }
-        .modal-content { background: #ffffff; width: 100%; max-width: 650px; max-height: 85vh; border-radius: 20px; padding: 30px; overflow-y: auto; position: relative; }
-        .close-btn { position: absolute; top: 20px; right: 20px; background: #f1f5f9; border: none; width: 36px; height: 36px; border-radius: 50%; cursor: pointer; z-index: 10; }
-        
-        .admin-trigger { position: fixed; bottom: 15px; right: 15px; background: rgba(0,0,0,0.05); color: #94a3b8; border: none; padding: 6px 10px; border-radius: 20px; cursor: pointer; font-size: 0.75rem; }
-        .loading-text { text-align: center; font-size: 1.1rem; color: #64748b; grid-column: 1 / -1; }
+        .category-tag {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            width: fit-content;
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover .category-tag {
+            transform: scale(1.05);
+        }
+
+        .tag-story { background: #dcfce7; color: #166534; }
+        .tag-novel { background: #dbeafe; color: #1e40af; }
+        .tag-drama { background: #fef3c7; color: #92400e; }
+        .tag-poem { background: #fce7f3; color: #9d174d; }
+
+        .card h3 {
+            font-size: 1.45rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 6px;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover h3 {
+            color: #2563eb;
+        }
+
+        .card .author {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .card .excerpt {
+            font-size: 0.95rem;
+            color: #334155;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .read-more {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .read-more i {
+            transition: transform 0.3s ease;
+        }
+
+        .read-more:hover i {
+            transform: translateX(6px);
+        }
+
+        /* Filter Animate Classes */
+        .card.hide {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
+        }
+
+        .card.show {
+            animation: cardAppear 0.5s ease forwards;
+        }
+
+        /* Animations Keyframes */
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Mobile View Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn { display: block; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                padding: 18px;
+                border-bottom: 1px solid #e2e8f0;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            }
+            .nav-links.show { display: flex; animation: fadeInDown 0.3s ease-out; }
+            .page-header h1 { font-size: 1.8rem; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
     </style>
-
-    <!-- Firebase Scripts Load Dynamically -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>আমার পছন্দের সংগ্রহ</h1>
-        <p>আমার প্রিয় নাটক, উপন্যাস, গল্প ও কবিতা</p>
-    </header>
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="nav-logo">
+            <i class="fa-solid fa-book-bookmark"></i> আহাদ আলী লেলিন
+        </a>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#" class="active">হোম</a></li>
+            <li><a href="#">সংগ্রহ</a></li>
+            <li><a href="#">ভাবনার ক্যানভাস</a></li>
+            <li><a href="#">আমার সম্পর্কে</a></li>
+            <li><a href="#">যোগাযোগ</a></li>
+        </ul>
+    </div>
+</nav>
 
-    <div class="admin-panel" id="adminPanel">
-        <div class="admin-header">
-            <h3>নতুন লেখা যুক্ত করুন (অ্যাডমিন প্যানেল)</h3>
-            <button class="logout-btn" onclick="hideAdminPanel()">লুকান</button>
+<!-- Main Page Header -->
+<header class="page-header">
+    <h1>আমার পছন্দের সংগ্রহ</h1>
+    <p>আমার প্রিয় নাটক, উপন্যাস, গল্প ও কবিতা</p>
+</header>
+
+<!-- Dynamic Filter Buttons -->
+<div class="filter-container">
+    <button class="filter-btn active" onclick="filterCategory('all', this)">সবগুলো</button>
+    <button class="filter-btn" onclick="filterCategory('drama', this)">নাটক</button>
+    <button class="filter-btn" onclick="filterCategory('novel', this)">উপন্যাস</button>
+    <button class="filter-btn" onclick="filterCategory('story', this)">গল্প</button>
+    <button class="filter-btn" onclick="filterCategory('poem', this)">কবিতা</button>
+</div>
+
+<!-- Main Content Grid -->
+<main class="grid-container" id="cardsGrid">
+
+    <!-- Card 1: গল্প -->
+    <article class="card" data-category="story">
+        <div>
+            <span class="category-tag tag-story">গল্প</span>
+            <h3>বিলাসী</h3>
+            <p class="author">লেখক: শরৎচন্দ্র চট্টোপাধ্যায়</p>
+            <p class="excerpt">
+                পাকা দুই ক্রোশ পথ হাঁটিয়া স্কুলে বিদ্যা অর্জন করিতে যাই। আমি একা নই—দশ-বারোজন। যাহাদেরই বাটী পল্লীগ্রামে, তাহাদেরই ছেলেদের শতকরা আশি জনকে এমনি করিয়া বিদ্যালাভ করিতে হয়। ইহাতে লাভের অঙ্কে শেষ পর্যন্ত একেবারেই শূন্য না পড়িলেও, যাহা পড়ে, তাহার হিসাব করিবার পক্ষে এই কয়টা কথা চিন্তা করিয়া দেখিলেই যথেষ্ট হইবে যে, যে ছেলেদের সকাল আটটার মধ্যে বাহির হইয়া যাতায়াতে চার ক্রোশ পথ ভাঙ্গিতে হয়...
+            </p>
         </div>
-        <form id="itemForm">
-            <div class="form-group">
-                <label>ক্যাটাগরি</label>
-                <select id="itemType" required>
-                    <option value="কবিতা">কবিতা</option>
-                    <option value="গল্প">গল্প</option>
-                    <option value="উপন্যাস">উপন্যাস</option>
-                    <option value="নাটক">নাটক</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>শিরোনাম</label>
-                <input type="text" id="itemTitle" required placeholder="যেমন: পাছে লোকে কিছু বলে">
-            </div>
-            <div class="form-group">
-                <label>লেখক</label>
-                <input type="text" id="itemAuthor" required placeholder="যেমন: কামিনী রায়">
-            </div>
-            <div class="form-group">
-                <label>ছবির লিঙ্ক / Image URL (অপশনাল)</label>
-                <input type="url" id="itemImageUrl" placeholder="https://example.com/image.jpg (খালি রাখলেও চলবে)">
-            </div>
-            <div class="form-group">
-                <label>ছোট বিবরণ (সংক্ষেপে)</label>
-                <input type="text" id="itemDesc" required placeholder="সংক্ষিপ্ত বিবরণ...">
-            </div>
-            <div class="form-group">
-                <label>সম্পূর্ণ লেখা (বিস্তারিত)</label>
-                <textarea id="itemFullContent" rows="6" required placeholder="সম্পূর্ণ কবিতা বা গল্প লিখুন..."></textarea>
-            </div>
-            <button type="submit" class="submit-btn" id="saveBtn">Save / সেভ করুন</button>
-        </form>
-    </div>
+        <div class="card-footer">
+            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </article>
 
-    <div class="filter-buttons">
-        <button class="filter-btn active" onclick="filterSelection('সব', this)">সবগুলো</button>
-        <button class="filter-btn" onclick="filterSelection('নাটক', this)">নাটক</button>
-        <button class="filter-btn" onclick="filterSelection('উপন্যাস', this)">উপন্যাস</button>
-        <button class="filter-btn" onclick="filterSelection('গল্প', this)">গল্প</button>
-        <button class="filter-btn" onclick="filterSelection('কবিতা', this)">কবিতা</button>
-    </div>
+    <!-- Card 2: উপন্যাস -->
+    <article class="card" data-category="novel">
+        <div>
+            <span class="category-tag tag-novel">উপন্যাস</span>
+            <h3>পদ্মা নদীর মাঝি</h3>
+            <p class="author">লেখক: মানিক বন্দ্যোপাধ্যায়</p>
+            <p class="excerpt">
+                বর্ষার মাঝামাঝি সময়। পদ্মায় ইলিশ মাছ ধরার মরসুম চলছে। দিনরাত কোনো সময়েই মাছ ধরা বন্ধ নেই। সন্ধ্যার সময় জাহাজঘাটে দাঁড়ালে দেখা যায় নদীর বুকে শত শত আলো অনির্বাণ জোনাকির মতো ঘুরে বেড়াচ্ছে। জেলে-নৌকার আলো সেগুলো। সমস্ত রাত আলোগুলো এভাবে নদীবক্ষের রহস্যময় ম্লান অন্ধকারে দুর্বোধ্য সংকেতের মতো সঞ্চালিত হয়...
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </article>
 
-    <div class="grid-container" id="contentGrid">
-        <div class="loading-text">ডাটা লোড হচ্ছে...</div>
-    </div>
-</div>
+    <!-- Card 3: গল্প -->
+    <article class="card" data-category="story">
+        <div>
+            <span class="category-tag tag-story">গল্প</span>
+            <h3>জোঁক</h3>
+            <p class="author">লেখক: আবু ইসহাক</p>
+            <p class="excerpt">
+                সিদ্ধ মিষ্টি আলুর কয়েক টুকরা পেটে জামিন দেয় ওসমান। ভাতের অভাবে অন্য কিছু দিয়ে উদরপূর্তির নাম পেটে জামিন দেওয়া। চাল যখন দুর্মূল্য তখন এ ছাড়া উপায় কী? ওসমান হুঁকা নিয়ে বসে আর মাজু বিবি নিয়ে আসে রয়নার তেলের বোতল। হাতের তেলোয় ঢেলে সে স্বামীর পিঠে মালিশ করতে শুরু করে। ছয় বছরের মেয়ে টুনি জিজ্ঞেস করে—এই তেল মালিশ করলে কী অয় মা?
+            </p>
+        </div>
+        <div class="card-footer">
+            <a href="#" class="read-more">বিস্তারিত পড়ুন <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </article>
 
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-    <div class="modal-content" onclick="event.stopPropagation()">
-        <button class="close-btn" onclick="closeModal()">✕</button>
-        <div id="modalImageContainer"></div>
-        <span class="badge" id="modalBadge"></span>
-        <h2 id="modalTitle" style="margin-top: 10px;"></h2>
-        <div class="author" id="modalAuthor" style="margin-top: 5px;"></div>
-        <hr style="margin: 15px 0; border: 0; border-top: 1px solid #e2e8f0;">
-        <div class="modal-body" id="modalBody" style="line-height: 1.8;"></div>
-    </div>
-</div>
-
-<button class="admin-trigger" onclick="showAdminPanel()">🔑 Admin Login</button>
+</main>
 
 <script>
-    var firebaseConfig = {
-        apiKey: "AIzaSyCUFnabuAwrDzdLKmuJdu8L3Ix-6RtmFYw",
-        authDomain: "my-favorite-afd36.firebaseapp.com",
-        projectId: "my-favorite-afd36",
-        storageBucket: "my-favorite-afd36.firebasestorage.app",
-        messagingSenderId: "946815901030",
-        appId: "1:946815901030:web:b36846c356f8f97edbfca7"
-    };
-
-    if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-    }
-    var db = firebase.firestore();
-
-    var ADMIN_PASSWORD = "4858"; 
-    var allData = [];
-
-    function fetchPosts() {
-        var grid = document.getElementById("contentGrid");
-        grid.innerHTML = '<div class="loading-text">ডাটা লোড হচ্ছে...</div>';
-        
-        db.collection("collection").get().then(function(querySnapshot) {
-            allData = [];
-            querySnapshot.forEach(function(doc) {
-                var d = doc.data();
-                d.id = doc.id;
-                allData.push(d);
-            });
-            displayContent(allData);
-        }).catch(function(error) {
-            console.error("Error loading docs: ", error);
-            grid.innerHTML = '<div class="loading-text">ডাটা লোড করতে সমস্যা হয়েছে: ' + error.message + '</div>';
-        });
+    // মোবাইল মেনু টগল স্ক্রিপ্ট
+    function toggleMenu() {
+        const navLinks = document.getElementById('navLinks');
+        navLinks.classList.toggle('show');
     }
 
-    document.getElementById("itemForm").addEventListener("submit", function(e) {
-        e.preventDefault();
-        var saveBtn = document.getElementById("saveBtn");
-        saveBtn.innerText = "Saving...";
-        saveBtn.disabled = true;
+    // মোশন ফিল্টারিং স্ক্রিপ্ট
+    function filterCategory(category, element) {
+        // সক্রিয় বাটন পরিবর্তন
+        const buttons = document.querySelectorAll('.filter-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
 
-        var imageUrl = document.getElementById("itemImageUrl").value.trim();
-
-        db.collection("collection").add({
-            type: document.getElementById("itemType").value,
-            title: document.getElementById("itemTitle").value,
-            author: document.getElementById("itemAuthor").value,
-            description: document.getElementById("itemDesc").value,
-            fullContent: document.getElementById("itemFullContent").value,
-            imageUrl: imageUrl,
-            createdAt: new Date().getTime()
-        }).then(function() {
-            alert("সফলভাবে যুক্ত হয়েছে!");
-            document.getElementById("itemForm").reset();
-            fetchPosts();
-        }).catch(function(error) {
-            alert("Error: " + error.message);
-        }).finally(function() {
-            saveBtn.innerText = "Save / সেভ করুন";
-            saveBtn.disabled = false;
-        });
-    });
-
-    function displayContent(items) {
-        var grid = document.getElementById("contentGrid");
-        grid.innerHTML = "";
-
-        if(!items || items.length === 0) {
-            grid.innerHTML = '<div class="loading-text">কোনো তথ্য নেই। অ্যাডমিন থেকে নতুন লেখা যুক্ত করুন।</div>';
-            return;
-        }
-
-        items.forEach(function(item) {
-            var card = document.createElement("div");
-            card.className = "card";
-            card.onclick = function() { openModal(item); };
+        // কার্ড ফিল্টার এনিমেশন
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const cardCat = card.getAttribute('data-category');
             
-            var imgHTML = (item.imageUrl && item.imageUrl !== "") 
-                ? '<img src="' + item.imageUrl + '" class="card-img">' 
-                : '';
-
-            card.innerHTML = imgHTML +
-                '<span class="badge badge-' + (item.type || 'কবিতা') + '">' + (item.type || 'কবিতা') + '</span>' +
-                '<h3>' + (item.title || '') + '</h3>' +
-                '<div class="author">লেখক: ' + (item.author || 'অজানা') + '</div>' +
-                '<div class="description">' + (item.description || '') + '</div>' +
-                '<div class="read-more">বিস্তারিত পড়ুন →</div>';
-            
-            grid.appendChild(card);
+            if (category === 'all' || cardCat === category) {
+                card.classList.remove('hide');
+                card.classList.add('show');
+            } else {
+                card.classList.remove('show');
+                card.classList.add('hide');
+            }
         });
     }
-
-    function filterSelection(category, btnElement) {
-        document.querySelectorAll('.filter-btn').forEach(function(btn) { btn.classList.remove('active'); });
-        btnElement.classList.add('active');
-        if (category === 'সব') displayContent(allData);
-        else displayContent(allData.filter(function(item) { return item.type === category; }));
-    }
-
-    function showAdminPanel() {
-        var pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if (pass === ADMIN_PASSWORD) {
-            document.getElementById("adminPanel").style.display = "block";
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (pass !== null) {
-            alert("ভুল পাসওয়ার্ড!");
-        }
-    }
-
-    function hideAdminPanel() {
-        document.getElementById("adminPanel").style.display = "none";
-    }
-
-    function openModal(item) {
-        document.getElementById("modalTitle").innerText = item.title || '';
-        document.getElementById("modalAuthor").innerText = "লেখক: " + (item.author || 'অজানা');
-        
-        var fullContentText = item.fullContent ? item.fullContent.replace(/\n/g, "<br>") : '';
-        document.getElementById("modalBody").innerHTML = fullContentText;
-        
-        var imgContainer = document.getElementById("modalImageContainer");
-        if(item.imageUrl && item.imageUrl !== "") {
-            imgContainer.innerHTML = '<img src="' + item.imageUrl + '" class="modal-img">';
-        } else {
-            imgContainer.innerHTML = '';
-        }
-
-        var badge = document.getElementById("modalBadge");
-        badge.innerText = item.type || 'কবিতা';
-        badge.className = 'badge badge-' + (item.type || 'কবিতা');
-        document.getElementById("modalOverlay").style.display = "flex";
-    }
-
-    function closeModal() {
-        document.getElementById("modalOverlay").style.display = "none";
-    }
-
-    // Load Data directly on script load
-    fetchPosts();
 </script>
+
 </body>
 </html>
