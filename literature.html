@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>আমার পছন্দের সংগ্রহ</title>
+    <!-- Font Awesome Icons & Google Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -13,10 +14,73 @@
         body { 
             background-color: #0b1329; 
             color: #f8fafc; 
-            padding: 20px; 
+            padding-top: 80px; /* Space for fixed navbar */
+            padding-bottom: 30px; 
             min-height: 100vh;
             position: relative;
             overflow-x: hidden;
+        }
+
+        /* Fixed Navigation Bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(18, 28, 56, 0.9);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+            z-index: 999;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+        }
+
+        .brand-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #38bdf8;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #cbd5e1;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: #38bdf8;
+            text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            color: #f8fafc;
+            cursor: pointer;
         }
 
         /* Background Canvas Particle */
@@ -30,9 +94,9 @@
             pointer-events: none;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; position: relative; z-index: 1; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 1; }
         
-        header { text-align: center; margin-bottom: 35px; margin-top: 10px; }
+        header { text-align: center; margin-bottom: 35px; margin-top: 15px; }
         header h1 { 
             color: #38bdf8; 
             margin-bottom: 8px; 
@@ -114,13 +178,50 @@
         .admin-trigger { position: fixed; bottom: 15px; right: 15px; background: rgba(18, 28, 56, 0.8); color: #94a3b8; border: 1px solid rgba(255, 255, 255, 0.1); padding: 8px 14px; border-radius: 20px; cursor: pointer; font-size: 0.8rem; backdrop-filter: blur(8px); transition: 0.3s; z-index: 99; }
         .admin-trigger:hover { color: #38bdf8; border-color: #38bdf8; }
         .loading-text { text-align: center; font-size: 1.1rem; color: #94a3b8; grid-column: 1 / -1; padding: 40px 0; }
+
+        /* Mobile Device Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger { display: block; }
+            .nav-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(18, 28, 56, 0.95);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid rgba(56, 189, 248, 0.2);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+                display: none;
+            }
+            .nav-menu.show { display: flex; }
+        }
     </style>
 
-    <!-- Firebase Scripts Load Dynamically -->
+    <!-- Firebase Scripts -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 </head>
 <body>
+
+<!-- Fixed Navigation Bar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="#" class="brand-logo">
+            <i class="fa-solid fa-bookmark"></i> পছন্দের সংগ্রহ
+        </a>
+        <button class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fa-solid fa-bars" id="menuIcon"></i>
+        </button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#" class="nav-link active">হোম</a></li>
+            <li><a href="#contentGrid" class="nav-link">সংগ্রহ তালিকা</a></li>
+            <li><a href="javascript:void(0)" onclick="showAdminPanel()" class="nav-link"><i class="fa-solid fa-lock"></i> অ্যাডমিন</a></li>
+        </ul>
+    </div>
+</nav>
 
 <canvas id="particle-canvas"></canvas>
 
@@ -197,6 +298,21 @@
 <button class="admin-trigger" onclick="showAdminPanel()"><i class="fa-solid fa-lock"></i> Admin Login</button>
 
 <script>
+    // Navigation Toggle for Mobile
+    function toggleMobileMenu() {
+        var menu = document.getElementById("navMenu");
+        var icon = document.getElementById("menuIcon");
+        menu.classList.toggle("show");
+        
+        if (menu.classList.contains("show")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-xmark");
+        } else {
+            icon.classList.remove("fa-xmark");
+            icon.classList.add("fa-bars");
+        }
+    }
+
     // Canvas Particle Animation
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
