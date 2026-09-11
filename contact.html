@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>যোগাযোগ - আহাদ আলী লেলিন</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Hind Siliguri', sans-serif;
+        }
+
+        body {
+            background-color: #0b1329;
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Canvas Background */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Navbar Style */
+        .navbar {
+            background: rgba(11, 19, 41, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #38bdf8;
+            text-decoration: none;
+            letter-spacing: 1px;
+            text-shadow: 0 0 12px rgba(56, 189, 248, 0.4);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 12px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #94a3b8;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        /* Main Content Wrapper */
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 0 20px;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .page-header p {
+            color: #94a3b8;
+            font-size: 1.05rem;
+        }
+
+        /* Contact Grid Layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 30px;
+        }
+
+        .contact-info-card, .contact-form-card {
+            background: rgba(18, 28, 56, 0.6);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: #f8fafc;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid rgba(56, 189, 248, 0.2);
+            padding-bottom: 10px;
+        }
+
+        .card-title i {
+            color: #38bdf8;
+        }
+
+        /* Info Item Details */
+        .info-list {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #38bdf8;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-details h4 {
+            font-size: 1rem;
+            color: #f8fafc;
+            margin-bottom: 4px;
+        }
+
+        .info-details p, .info-details a {
+            font-size: 0.95rem;
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-details a:hover {
+            color: #38bdf8;
+        }
+
+        /* Social Icons */
+        .social-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            background: rgba(11, 19, 41, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #cbd5e1;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-btn:hover {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38bdf8;
+            transform: translateY(-3px);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(11, 19, 41, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #f8fafc;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3);
+            background: rgba(11, 19, 41, 0.9);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7 0%, #2563eb 100%);
+            color: #ffffff;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(2, 132, 199, 0.4);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* Alert Box */
+        .alert-msg {
+            display: none;
+            padding: 12px;
+            border-radius: 8px;
+            background: rgba(34, 197, 94, 0.15);
+            border: 1px solid rgba(34, 197, 94, 0.4);
+            color: #4ade80;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: auto;
+            z-index: 1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 850px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="particle-canvas"></canvas>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="index.html" class="nav-logo">আহাদ আলী লেলিন</a>
+        <ul class="nav-links" id="dynamic-nav-links"></ul>
+    </div>
+</nav>
+
+<!-- Content Area -->
+<div class="container">
+    <div class="page-header">
+        <h1>যোগাযোগ করুন</h1>
+        <p>পেশাগত কোনো বিষয়ে আলোচনা বা অন্য যেকোনো দরকারে সরাসরি মেসেজ পাঠান</p>
+    </div>
+
+    <div class="contact-grid">
+        <!-- Left Column: Contact Information -->
+        <div class="contact-info-card">
+            <h3 class="card-title"><i class="fa-solid fa-address-book"></i> যোগাযোগের মাধ্যম</h3>
+            
+            <div class="info-list">
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div class="info-details">
+                        <h4>ইমেইল</h4>
+                        <a href="mailto:ahadalilelin@gmail.com">ahadalilelin@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-briefcase"></i></div>
+                    <div class="info-details">
+                        <h4>কর্মস্থল</h4>
+                        <p>United Group, Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                    <div class="info-details">
+                        <h4>বর্তমান ঠিকানা</h4>
+                        <p>ঢাকা, বাংলাদেশ</p>
+                    </div>
+                </div>
+            </div>
+
+            <h4 style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 12px;">সোশ্যাল মিডিয়াতে যুক্ত থাকুন:</h4>
+            <div class="social-links">
+                <a href="#" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                <a href="#" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="#" class="social-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                <a href="#" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+
+        <!-- Right Column: Contact Form -->
+        <div class="contact-form-card">
+            <h3 class="card-title"><i class="fa-solid fa-paper-plane"></i> বার্তা পাঠান</h3>
+            
+            <div class="alert-msg" id="alertBox">
+                <i class="fa-solid fa-circle-check"></i> ধন্যবাদ! আপনার বার্তাটি সফলভাবে পাঠানো হয়েছে।
+            </div>
+
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">আপনার নাম *</label>
+                    <input type="text" id="name" class="form-control" placeholder="যেমন: আব্দুর রহমান" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">ইমেইল ঠিকানা *</label>
+                    <input type="email" id="email" class="form-control" placeholder="example@mail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">বিষয়</label>
+                    <input type="text" id="subject" class="form-control" placeholder="মেসেজের মূল বিষয়...">
+                </div>
+
+                <div class="form-group">
+                    <label for="message">বার্তা *</label>
+                    <textarea id="message" class="form-control" placeholder="এখানে বিস্তারিত লিখুন..." required></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i class="fa-solid fa-paper-plane"></i> বার্তা পাঠান
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<footer>
+    &copy; 2026 আহাদ আলী লেলিন। সর্বস্বত্ব সংরক্ষিত।
+</footer>
+
+<script>
+    // ১. ডায়নামিক নেভিগেশন
+    const pages = [
+        { name: "হোম", url: "index.html" },
+        { name: "সংগ্রহ", url: "literature.html" },
+        { name: "আমার লেখা", url: "thoughts.html" },
+        { name: "স্মৃতির পাতায়", url: "galary.html" },
+        { name: "আমার সম্পর্কে", url: "about.html" },
+        { name: "যোগাযোগ", url: "contact.html" }
+    ];
+
+    function buildNavigation() {
+        const navUl = document.getElementById('dynamic-nav-links');
+        const currentPath = window.location.pathname.split('/').pop() || 'contact.html';
+        
+        navUl.innerHTML = '';
+
+        pages.forEach(page => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = page.url;
+            a.innerText = page.name;
+
+            if (currentPath === page.url) {
+                a.classList.add('active');
+            }
+
+            li.appendChild(a);
+            navUl.appendChild(li);
+        });
+    }
+    buildNavigation();
+
+    // ২. ব্যাকগ্রাউন্ড পার্টিকেল অ্যানিমেশন
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+    
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    const particles = [];
+    for (let i = 0; i < 40; i++) {
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            radius: Math.random() * 2 + 1,
+            dx: (Math.random() - 0.5) * 0.5,
+            dy: (Math.random() - 0.5) * 0.5
+        });
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = 'rgba(56, 189, 248, 0.4)';
+        
+        particles.forEach(p => {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+            ctx.fill();
+
+            p.x += p.dx;
+            p.y += p.dy;
+
+            if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+            if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+        });
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ৩. ফর্ম সাবমিট অ্যানিমেশন (Demo Handing)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const alertBox = document.getElementById('alertBox');
+        alertBox.style.display = 'block';
+        
+        // ফর্ম ফাঁকা করে দেওয়া
+        this.reset();
+
+        // ৫ সেকেন্ড পর সাকসেস মেসেজ হাইড করা
+        setTimeout(() => {
+            alertBox.style.display = 'none';
+        }, 5000);
+    });
+</script>
+
+</body>
+</html>
